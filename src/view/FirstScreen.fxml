@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FirstScreen">
+   <children>
+      <Button layoutX="363.0" layoutY="292.0" mnemonicParsing="false" onAction="#changeLabelText" prefHeight="35.0" prefWidth="74.0" text="Click Me" />
+      <Label layoutX="278.0" layoutY="69.0" text="First Screen" textAlignment="CENTER">
+         <font>
+            <Font size="48.0" />
+         </font></Label>
+      <Label fx:id="label" layoutX="310.0" layoutY="194.0" text="Click The Button" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
