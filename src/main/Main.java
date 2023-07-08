@@ -1,10 +1,15 @@
 package main;
 
+import Database.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+
+import java.util.Locale;
+
 
 public class Main extends Application {
 
@@ -14,9 +19,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        DBConnection.openConnection();
+
+        //  Locale.setDefault(new Locale("fr")); //Uncomment to Test French Locale
+
         Parent root = FXMLLoader.load(getClass().getResource("/view/FirstScreen.fxml"));
-        primaryStage.setTitle("First View");
+        primaryStage.setTitle("Scheduling Manager");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
+
+
+
+
 }

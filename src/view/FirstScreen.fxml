@@ -1,20 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FirstScreen">
+<AnchorPane prefHeight="600.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FirstScreen">
    <children>
-      <Button layoutX="363.0" layoutY="292.0" mnemonicParsing="false" onAction="#changeLabelText" prefHeight="35.0" prefWidth="74.0" text="Click Me" />
-      <Label layoutX="278.0" layoutY="69.0" text="First Screen" textAlignment="CENTER">
-         <font>
-            <Font size="48.0" />
-         </font></Label>
-      <Label fx:id="label" layoutX="310.0" layoutY="194.0" text="Click The Button" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <VBox prefHeight="600.0" prefWidth="810.0" spacing="10.0">
+         <children>
+            <Label text="Client Scheduling" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="40.0" layoutY="40.0" maxWidth="1.7976931348623157E308" text="Login" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="127.0" prefWidth="750.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="126.0" snapToPixel="false" spacing="10.0">
+                     <children>
+                        <Label text="Username:" textAlignment="CENTER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label  layoutX="10.0" layoutY="10.0" text="Password:" textAlignment="CENTER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label  layoutX="10.0" layoutY="45.0" text="Location:" textAlignment="CENTER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></VBox>
+                  <VBox prefHeight="200.0" prefWidth="210.0" spacing="13.0">
+                     <children>
+                        <TextField fx:id="username">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField fx:id="password">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </PasswordField>
+                        <Label fx:id="locationLabel" text="location" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Italic" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" spacing="200.0">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#login" prefHeight="35.0" prefWidth="74.0" text="Login" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="10.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#quit" prefHeight="35.0" prefWidth="74.0" text="Exit" />
+               </children>
+            </HBox>
+            <Text fx:id="errorText" fill="#e40000" text="error_text" wrappingWidth="372.0000114440918">
+               <VBox.margin>
+                  <Insets left="200.0" />
+               </VBox.margin></Text>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>

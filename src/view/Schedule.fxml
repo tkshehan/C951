@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
+    <children>
+        <HBox layoutX="51.0" layoutY="63.0" spacing="20.0">
+         <children>
+            <RadioButton mnemonicParsing="false" onAction="#displayAll" selected="true" text="All Appointments">
+               <toggleGroup>
+                  <ToggleGroup fx:id="timeFrame" />
+               </toggleGroup></RadioButton>
+
+             <RadioButton mnemonicParsing="false" onAction="#displayByMonth" text="By Month" toggleGroup="$timeFrame" />
+            <RadioButton mnemonicParsing="false" onAction="#displayByWeek" text="By Week" toggleGroup="$timeFrame" />
+         </children>
+        </HBox>
+        <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Appointments">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+        <HBox layoutX="51.0" layoutY="460.0" spacing="20.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#newAppointment" text="New Appointment" />
+                <Button mnemonicParsing="false" onAction="#editAppointment" text="Edit Appointment" />
+                <Button mnemonicParsing="false" onAction="#deleteAppointment" text="Delete Appointment" />
+            <Pane prefHeight="25.0" prefWidth="31.0" />
+                <Button mnemonicParsing="false" onAction="#toCustomerRecords" text="To Customer Records" />
+                <Button mnemonicParsing="false" onAction="#quit" text="Quit" />
+            </children>
+        </HBox>
+      <AnchorPane layoutX="50.0" layoutY="91.0" prefHeight="358.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="90.0">
+         <children>
+              <TableView fx:id="appointmentTable" prefHeight="358.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0">
+                  <columns>
+                      <TableColumn prefWidth="48.33333969116211" text="ID" />
+                      <TableColumn prefWidth="50.66667938232422" text="Title" />
+                      <TableColumn minWidth="0.33331298828125" prefWidth="60.0" text="Location" />
+                      <TableColumn prefWidth="66.6666259765625" text="Contact" />
+                      <TableColumn prefWidth="62.33331298828125" text="Type" />
+                      <TableColumn prefWidth="53.333343505859375" text="Start" />
+                      <TableColumn prefWidth="49.0" text="End" />
+                      <TableColumn prefWidth="48.0" text="Cust ID" />
+                      <TableColumn prefWidth="47.0" text="User ID" />
+                      <TableColumn prefWidth="169.33335876464844" text="Description" />
+                  </columns>
+              </TableView>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

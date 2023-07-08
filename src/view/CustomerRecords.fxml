@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerRecords">
+   <children>
+      <HBox layoutX="51.0" layoutY="63.0" spacing="20.0">
+         <children>
+            <ComboBox fx:id="countryCombo" prefWidth="150.0" promptText="Country" />
+            <ComboBox fx:id="stateComboBox" disable="true" prefWidth="150.0" promptText="State/Province" />
+         </children>
+      </HBox>
+      <TableView layoutX="51.0" layoutY="100.0" prefHeight="348.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+        <columns>
+          <TableColumn prefWidth="48.33333969116211" text="ID" />
+          <TableColumn prefWidth="118.3333511352539" text="Name" />
+            <TableColumn prefWidth="300.00001525878906" text="Address" />
+            <TableColumn minWidth="0.33331298828125" prefWidth="70.66668701171875" text="Postal Code" />
+            <TableColumn prefWidth="109.33331298828125" text="Phone #" />
+        </columns>
+      </TableView>
+      <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Customer Records">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox layoutX="51.0" layoutY="460.0" prefHeight="25.0" prefWidth="649.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#newCustomer" text="New Customer" />
+            <Button mnemonicParsing="false" onAction="#editCustomer" text="Edit Customer" />
+            <Button mnemonicParsing="false" onAction="#deleteCustomer" text="Delete Customer" />
+            <Pane prefHeight="0.0" prefWidth="111.0" />
+            <Button layoutX="235.0" layoutY="10.0" mnemonicParsing="false" onAction="#toAppointments" text="To Appointments" />
+            <Button layoutX="361.0" layoutY="10.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
