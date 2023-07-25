@@ -24,19 +24,19 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="127.0" prefWidth="750.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="126.0" snapToPixel="false" spacing="10.0">
+                  <VBox maxWidth="1.7976931348623157E308" prefHeight="126.0" snapToPixel="false" spacing="10.0">
                      <children>
-                        <Label text="%Username" textAlignment="CENTER">
+                        <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="%Username" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label  layoutX="10.0" layoutY="10.0" text="%Password" textAlignment="CENTER">
+                        <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="%Password" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label  layoutX="10.0" layoutY="45.0" text="%Location" textAlignment="CENTER">
+                        <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="45.0" maxWidth="1.7976931348623157E308" text="%Location" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -44,7 +44,10 @@
                      </children>
                      <HBox.margin>
                         <Insets />
-                     </HBox.margin></VBox>
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding></VBox>
                   <VBox prefHeight="200.0" prefWidth="210.0" spacing="13.0">
                      <children>
                         <TextField fx:id="username">
