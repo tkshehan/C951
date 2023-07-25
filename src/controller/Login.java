@@ -17,6 +17,7 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -38,8 +39,13 @@ public class Login implements Initializable {
             System.out.println(e);
         }
         resources = resourceBundle;
+        displayLocation();
     }
 
+    public void displayLocation() {
+        String location = Locale.getDefault().getDisplayCountry();
+        locationLabel.setText(location);
+    }
 
     public void login(ActionEvent actionEvent) throws IOException {
         errorText.setText(""); // Reset error message

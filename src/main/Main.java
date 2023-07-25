@@ -26,7 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //Locale.setDefault(new Locale("fr")); //Uncomment to Test French Locale
+        Locale.setDefault(new Locale("fr", "US")); //Uncomment to Test French Locale
         ResourceBundle resources = ResourceBundle.getBundle("Login", Locale.getDefault());
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"), resources);
         primaryStage.setTitle(resources.getString("SchedulingManager"));
