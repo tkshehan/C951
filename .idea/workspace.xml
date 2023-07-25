@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ccab6fb-d887-464c-88d7-b77e0ad9539e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/17_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_base.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.28.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Database/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/CustomerRecords.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/Reports.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/CustomerRecords.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/Reports.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/Schedule.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/resourceBundles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Database/Query.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Database/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/Login.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/Login_FR.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C195.iml" beforeDir="false" afterPath="$PROJECT_DIR$/C195.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/FirstScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/FirstScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/FirstScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/FirstScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/FirstScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/FirstScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +55,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/thoma/IdeaProjects/C195",
+    "last_opened_file_path": "C:/Users/thoma/Documents/C195 Examples/C195 Code Repository/C195_Language_example_IntelliJ_IDEA",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,7 +110,10 @@
       <workItem from="1681568015772" duration="538000" />
       <workItem from="1682170081984" duration="2887000" />
       <workItem from="1688479829384" duration="4435000" />
-      <workItem from="1688827635805" duration="4915000" />
+      <workItem from="1688827635805" duration="5240000" />
+      <workItem from="1689087832962" duration="1642000" />
+      <workItem from="1689089523691" duration="5196000" />
+      <workItem from="1689354153272" duration="4227000" />
     </task>
     <servers />
   </component>
@@ -139,5 +133,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

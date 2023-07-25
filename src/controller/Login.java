@@ -1,6 +1,9 @@
 package controller;
 
+import Database.UserDao;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,33 +13,56 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class FirstScreen implements Initializable {
-
+public class Login implements Initializable {
+    ResourceBundle resources;
     public TextField username;
     public PasswordField password;
     public Text errorText;
     public Label locationLabel;
 
+    ObservableList<User> Users = FXCollections.observableArrayList();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Initialized");
+        try {
+            Users.addAll(UserDao.getAllUsers());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        resources = resourceBundle;
     }
 
 
     public void login(ActionEvent actionEvent) throws IOException {
+        errorText.setText(""); // Reset error message
         // Validate
+        User loginUser = null;
         boolean valid = true;
-        if (valid) {
+        try {
+            loginUser = Users.stream().filter(user -> user.getName().equals(username.getText()))
+                    .findFirst()
+                    .get();
+        } catch (Exception e) {
+            errorText.setText(resources.getString("ErrorUsername"));
+            valid = false;
+        }
 
-            //Move to next screen
-            toSchedule(actionEvent);
+        if (valid) {
+            if (loginUser.getPassword().equals(password.getText())) {
+                // Successful Login
+                toSchedule(actionEvent);
+            } else {
+                // Display error, incorrect password
+                errorText.setText(resources.getString("ErrorPassword"));
+            }
         }
     }
 
