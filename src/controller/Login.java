@@ -17,9 +17,13 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Login implements Initializable {
     ResourceBundle resources;
@@ -29,6 +33,7 @@ public class Login implements Initializable {
     public Label locationLabel;
 
     ObservableList<User> Users = FXCollections.observableArrayList();
+    Logger log;
 
 
     @Override
@@ -38,6 +43,7 @@ public class Login implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+        setupLogger();
         resources = resourceBundle;
         displayLocation();
     }
@@ -47,29 +53,62 @@ public class Login implements Initializable {
         locationLabel.setText(location);
     }
 
+    public void setupLogger() {
+        log = Logger.getLogger("login_activity.txt");
+        log.setLevel(Level.CONFIG);
+        try {
+            FileHandler fh = new FileHandler("login_activity.txt", true);
+            System.setProperty("java.util.logging.SimpleFormatter.format",
+                    "%4$s: %5$s%n");
+            SimpleFormatter sf = new SimpleFormatter();
+            fh.setFormatter(sf);
+            log.addHandler(fh);
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void login(ActionEvent actionEvent) throws IOException {
         errorText.setText(""); // Reset error message
         // Validate
         User loginUser = null;
-        boolean valid = true;
+        boolean isValid = true;
         try {
             loginUser = Users.stream().filter(user -> user.getName().equals(username.getText()))
                     .findFirst()
                     .get();
         } catch (Exception e) {
             errorText.setText(resources.getString("ErrorUsername"));
-            valid = false;
+            isValid = false;
         }
 
-        if (valid) {
-            if (loginUser.getPassword().equals(password.getText())) {
-                // Successful Login
-                toSchedule(actionEvent);
-            } else {
+        if (isValid) {
+            if (!loginUser.getPassword().equals(password.getText())) {
                 // Display error, incorrect password
                 errorText.setText(resources.getString("ErrorPassword"));
+                isValid = false;
             }
         }
+
+        logLoginAttempt(isValid);
+        if(isValid) {
+            // Login Successful
+            toSchedule(actionEvent);
+        }
+    }
+
+    public void logLoginAttempt(boolean isValid) {
+        Date currentUtcTime = Date.from(Instant.now());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+
+        String result = "FAILED";
+        if (isValid) result = "SUCCESS";
+        String attempt = "Login attempt: " + result + " | " + sdf.format(currentUtcTime) ;
+
+        log.info(attempt);
     }
 
 
