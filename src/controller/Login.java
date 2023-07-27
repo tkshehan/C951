@@ -31,6 +31,7 @@ public class Login implements Initializable {
     public PasswordField password;
     public Text errorText;
     public Label locationLabel;
+    public static User activeUser;
 
     ObservableList<User> Users = FXCollections.observableArrayList();
     Logger log;
@@ -95,6 +96,7 @@ public class Login implements Initializable {
         logLoginAttempt(isValid);
         if(isValid) {
             // Login Successful
+            activeUser = loginUser;
             toSchedule(actionEvent);
         }
     }

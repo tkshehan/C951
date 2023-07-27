@@ -4,20 +4,20 @@ public class Appointment {
     private final int ID;
     private String title;
     private String location;
-    private String contact;
     private String type;
-    private int start;
-    private int end;
+    private String start;
+    private String end;
     private int custID;
     private int userID;
+    private int contactID;
     private String description;
 
 
-    public Appointment(int id, String title, String location, String contact, String type, int start, int end, int custID, int userID, String description) {
+    public Appointment(int id, String title, String location, int contactID, String type, String start, String end, int custID, int userID, String description) {
         ID = id;
         this.title = title;
         this.location = location;
-        this.contact = contact;
+        this.contactID = contactID;
         this.type = type;
         this.start = start;
         this.end = end;
@@ -46,12 +46,12 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getContact() {
-        return contact;
+    public int getContactID() {
+        return contactID;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setContact(int contact) {
+        this.contactID = contactID;
     }
 
     public String getType() {
@@ -62,19 +62,19 @@ public class Appointment {
         this.type = type;
     }
 
-    public int getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public int getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(int end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

@@ -1,6 +1,8 @@
 package controller;
 
+import Database.AppointmentDao;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,8 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Appointment;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -25,10 +27,15 @@ public class Schedule implements Initializable {
     public Label currentWeek;
     public TableView weekTable;
     public AnchorPane weekPane;
+    private ObservableList<Appointment> appointments;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+             appointments = AppointmentDao.getAllAppointments();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 
@@ -63,7 +70,6 @@ public class Schedule implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 
     public void displayAll(ActionEvent actionEvent) {
 

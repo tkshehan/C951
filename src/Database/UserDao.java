@@ -20,7 +20,6 @@ public class UserDao {
             String password=result.getString("Password");
             User userResult= new User(userid, userNameG, password);
             allUsers.add(userResult);
-
         }
         DBConnection.closeConnection();
         return allUsers;
