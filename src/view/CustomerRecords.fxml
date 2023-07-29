@@ -12,13 +12,15 @@
             <ComboBox fx:id="stateComboBox" disable="true" prefWidth="150.0" promptText="State/Province" />
          </children>
       </HBox>
-      <TableView layoutX="51.0" layoutY="100.0" prefHeight="348.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+      <TableView fx:id="customerTable" layoutX="51.0" layoutY="100.0" prefHeight="348.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
         <columns>
-          <TableColumn prefWidth="48.33333969116211" text="ID" />
-          <TableColumn prefWidth="118.3333511352539" text="Name" />
-            <TableColumn prefWidth="300.00001525878906" text="Address" />
-            <TableColumn minWidth="0.33331298828125" prefWidth="70.66668701171875" text="Postal Code" />
-            <TableColumn prefWidth="109.33331298828125" text="Phone #" />
+          <TableColumn fx:id="idCol" prefWidth="31.666683197021484" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="132.66669464111328" text="Name" />
+            <TableColumn fx:id="addressCol" prefWidth="125.99998474121094" text="Address" />
+            <TableColumn fx:id="postalCol" minWidth="0.33331298828125" prefWidth="81.33331298828125" text="Postal Code" />
+            <TableColumn fx:id="countryCol" prefWidth="125.66671752929688" text="Country" />
+            <TableColumn fx:id="divisionCol" prefWidth="130.66668701171875" text="Division" />
+            <TableColumn fx:id="phoneCol" prefWidth="110.0" text="Phone #" />
         </columns>
       </TableView>
       <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Customer Records">
