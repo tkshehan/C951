@@ -49,7 +49,7 @@ public class CustomerRecords implements Initializable {
             Parent root = loader.load();
 
             Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 750, 500);
+            Scene scene = new Scene(root, 850, 500);
             stage.setScene(scene);
             stage.show();
     }

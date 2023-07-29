@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerRecords">
+<AnchorPane prefHeight="500.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerRecords">
    <children>
       <HBox layoutX="51.0" layoutY="63.0" spacing="20.0">
          <children>
@@ -26,12 +26,12 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <HBox layoutX="51.0" layoutY="460.0" prefHeight="25.0" prefWidth="649.0" spacing="20.0">
+      <HBox layoutX="51.0" layoutY="460.0" prefHeight="25.0" prefWidth="649.0" spacing="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
          <children>
             <Button mnemonicParsing="false" onAction="#newCustomer" text="New Customer" />
             <Button mnemonicParsing="false" onAction="#editCustomer" text="Edit Customer" />
             <Button mnemonicParsing="false" onAction="#deleteCustomer" text="Delete Customer" />
-            <Pane prefHeight="0.0" prefWidth="111.0" />
+            <Pane prefHeight="0.0" prefWidth="111.0" HBox.hgrow="ALWAYS" />
             <Button layoutX="235.0" layoutY="10.0" mnemonicParsing="false" onAction="#toAppointments" text="To Appointments" />
             <Button layoutX="361.0" layoutY="10.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
          </children>
