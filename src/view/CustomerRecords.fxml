@@ -8,8 +8,8 @@
    <children>
       <HBox layoutX="51.0" layoutY="63.0" spacing="20.0">
          <children>
-            <ComboBox fx:id="countryCombo" prefWidth="150.0" promptText="Country" />
-            <ComboBox fx:id="stateComboBox" disable="true" prefWidth="150.0" promptText="State/Province" />
+            <ComboBox fx:id="countryCombo" onAction="#selectCountry" prefWidth="150.0" promptText="Country" />
+            <ComboBox fx:id="stateComboBox" disable="true" onAction="#selectState" prefWidth="150.0" promptText="State/Province" />
          </children>
       </HBox>
       <TableView fx:id="customerTable" layoutX="51.0" layoutY="100.0" prefHeight="348.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">

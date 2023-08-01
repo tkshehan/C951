@@ -2,6 +2,7 @@ package controller;
 
 import Database.CustomerDao;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +17,14 @@ import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerRecords implements Initializable {
-    public ComboBox countryCombo;
-    public ComboBox stateComboBox;
+    public ComboBox<String> countryCombo;
+    public ComboBox<String> stateComboBox;
     public TableView<Customer> customerTable;
     public TableColumn idCol;
     public TableColumn nameCol;
@@ -33,6 +36,7 @@ public class CustomerRecords implements Initializable {
 
 
     private ObservableList<Customer> customers;
+    private ObservableList<Customer> countryCustomers;
 
 
 
@@ -53,6 +57,24 @@ public class CustomerRecords implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+        initializeCountries();
+    }
+
+    private void initializeCountries() {
+        countryCombo.getItems().clear();
+        countryCombo.getItems().add("All Countries");
+      customers.stream().map(Customer::getCountry).distinct().sorted().forEach((country) -> {
+            countryCombo.getItems().add(country);
+        });
+    }
+
+    private void initializeStates(ObservableList<Customer> countryCustomers) {
+        stateComboBox.getItems().clear();
+        stateComboBox.getItems().add("All Divisions");
+        countryCustomers.stream().map(Customer::getDivision).distinct().sorted().forEach((state) -> {
+            stateComboBox.getItems().add(state);
+        });
+        stateComboBox.setDisable(false);
     }
 
     public void quit(ActionEvent actionEvent) {
@@ -80,5 +102,33 @@ public class CustomerRecords implements Initializable {
             Scene scene = new Scene(root, 835, 500);
             stage.setScene(scene);
             stage.show();
+    }
+
+    public void selectCountry(ActionEvent actionEvent) {
+        stateComboBox.getItems().clear();
+
+        String country = countryCombo.getValue();
+        if(Objects.equals(country, "All Countries")) {
+            customerTable.setItems(customers);
+            stateComboBox.setDisable(true);
+        } else {
+            countryCustomers = customers.stream()
+                    .filter(customer -> Objects.equals(customer.getCountry(), country))
+                    .sorted().collect(Collectors.toCollection(FXCollections::observableArrayList));
+            customerTable.setItems(countryCustomers);
+            initializeStates(countryCustomers);
+        }
+    }
+
+    public void selectState(ActionEvent actionEvent) {
+        String state = stateComboBox.getValue();
+        if(Objects.equals(state, "All Divisions")) {
+            customerTable.setItems(countryCustomers);
+        } else {
+            ObservableList<Customer> stateCustomers = countryCustomers.stream()
+                    .filter(customer -> Objects.equals(customer.getDivision(), state))
+                    .sorted().collect(Collectors.toCollection(FXCollections::observableArrayList));
+            customerTable.setItems(stateCustomers);
+        }
     }
 }
