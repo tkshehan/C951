@@ -1,19 +1,20 @@
 package model;
+import java.sql.Timestamp;
 
 public class Appointment {
     private final int ID;
     private String title;
     private String location;
     private String type;
-    private String start;
-    private String end;
+    private Timestamp start;
+    private Timestamp end;
     private int custID;
     private int userID;
     private int contactID;
     private String description;
 
 
-    public Appointment(int id, String title, String location, int contactID, String type, String start, String end, int custID, int userID, String description) {
+    public Appointment(int id, String title, String location, int contactID, String type, Timestamp start, Timestamp end, int custID, int userID, String description) {
         ID = id;
         this.title = title;
         this.location = location;
@@ -62,19 +63,19 @@ public class Appointment {
         this.type = type;
     }
 
-    public String getStart() {
+    public Timestamp getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(Timestamp start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 

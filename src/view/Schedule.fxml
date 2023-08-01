@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
     <children>
-        <HBox layoutX="51.0" layoutY="63.0" spacing="20.0">
+        <HBox layoutX="51.0" layoutY="63.0" spacing="20.0" AnchorPane.leftAnchor="20.0">
          <children>
             <RadioButton fx:id="displayAll" mnemonicParsing="false" onAction="#displayAll" selected="true" text="All Appointments">
                <toggleGroup>
@@ -17,7 +17,7 @@
             <RadioButton fx:id="displayByWeek" mnemonicParsing="false" onAction="#displayByWeek" text="By Week" toggleGroup="$timeFrame" />
          </children>
         </HBox>
-        <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Appointments">
+        <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Appointments" AnchorPane.leftAnchor="20.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>

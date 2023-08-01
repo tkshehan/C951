@@ -6,6 +6,7 @@ import model.Appointment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class AppointmentDao {
     public static ObservableList<Appointment> getAllAppointments() throws SQLException {
@@ -19,8 +20,8 @@ public class AppointmentDao {
             String title = result.getString("Title");
             String location = result.getString("Location");
             String type = result.getString("Type");
-            String start = result.getString("Start");
-            String end = result.getString("End");
+            Timestamp start = result.getTimestamp("Start");
+            Timestamp end = result.getTimestamp("End");
             int custID = result.getInt("Customer_ID");
             int userID = result.getInt("User_ID");
             int contactID = result.getInt("Contact_ID");

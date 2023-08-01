@@ -2,6 +2,7 @@ package controller;
 
 import Database.AppointmentDao;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +17,12 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class Schedule implements Initializable {
     public RadioButton displayAll;
@@ -93,14 +98,30 @@ public class Schedule implements Initializable {
     }
 
     public void displayAll(ActionEvent actionEvent) {
-
+        appointmentTable.setItems(appointments);
     }
 
     public void displayByMonth(ActionEvent actionEvent) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        cal.add(Calendar.MONTH, 1);
 
+        ObservableList<Appointment> monthAppointments = appointments.stream().filter(appointment -> {
+            int result = appointment.getStart().compareTo(new Timestamp(cal.getTime().getTime()));
+            return result <= 0;
+        }).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        appointmentTable.setItems(monthAppointments);
     }
 
     public void displayByWeek(ActionEvent actionEvent) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        cal.add(Calendar.DAY_OF_WEEK, 7);
 
+        ObservableList<Appointment> weekAppointments = appointments.stream().filter(appointment -> {
+            int result = appointment.getStart().compareTo(new Timestamp(cal.getTime().getTime()));
+            return result <= 0;
+        }).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        appointmentTable.setItems(weekAppointments);
     }
 }
