@@ -1,5 +1,6 @@
 package controller;
 
+import Database.ContactDao;
 import Database.CountryDao;
 import javafx.fxml.Initializable;
 
@@ -16,5 +17,11 @@ public class EditAppointment implements Initializable {
         } catch (SQLException e) {
             System.out.println(e);
         }
+        try {
+            ContactDao.getAllContacts();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
+
 }

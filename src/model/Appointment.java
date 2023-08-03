@@ -6,9 +6,9 @@ public class Appointment {
     private String title;
     private String location;
     private String type;
-    private Timestamp start;
-    private Timestamp end;
-    private int custID;
+    private Timestamp start; // Stored in UTC
+    private Timestamp end; // Stored in UTC
+    private int customerID;
     private int userID;
     private int contactID;
     private String description;
@@ -22,7 +22,7 @@ public class Appointment {
         this.type = type;
         this.start = start;
         this.end = end;
-        this.custID = custID;
+        this.customerID = custID;
         this.userID = userID;
         this.description = description;
     }
@@ -79,12 +79,12 @@ public class Appointment {
         this.end = end;
     }
 
-    public int getCustID() {
-        return custID;
+    public int getCustomerID() {
+        return customerID;
     }
 
-    public void setCustID(int custID) {
-        this.custID = custID;
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
     public int getUserID() {

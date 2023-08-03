@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ccab6fb-d887-464c-88d7-b77e0ad9539e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Database/CountryDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/EditAppointment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/EditAppointment.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Database/ContactDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/NewAppointment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Contact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Country.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/CountryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/CountryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/EditAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditAppointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +117,7 @@
       <workItem from="1690645984821" duration="1991000" />
       <workItem from="1690894524523" duration="3058000" />
       <workItem from="1690897691845" duration="7328000" />
-      <workItem from="1691067257531" duration="3583000" />
+      <workItem from="1691067257531" duration="6278000" />
     </task>
     <servers />
   </component>
