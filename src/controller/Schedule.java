@@ -52,7 +52,7 @@ public class Schedule implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
-        custCol.setCellValueFactory(new PropertyValueFactory<>("custID"));
+        custCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 

@@ -1,18 +1,24 @@
 package Database;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.util.StringConverter;
 import model.Contact;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class ContactDao {
-    private static ArrayList<Contact> contacts = null;
-    public static ArrayList<Contact> getAllContacts() throws SQLException {
-        if (contacts != null) return contacts;
+    private static ObservableList<Contact> contacts = null;
+    public static ObservableList<Contact> getAllContacts() throws SQLException {
+        if (contacts != null) {
+            return contacts;
+        } else {
+            contacts = FXCollections.observableArrayList();
+        }
 
-        contacts = new ArrayList<Contact>();
         DBConnection.openConnection();
         String sqlStatement = "SELECT first_level_divisions.division, countries.country " +
                 "FROM first_level_divisions " +

@@ -1,27 +1,9 @@
 package model;
 
-import java.util.ArrayList;
+public record User(int id, String name, String password) {
 
-public class User {
-
-    private final int ID;
-    private String name;
-    private String password;
-
-    public User(int id, String name, String password) {
-        ID = id;
-        this.name = name;
-        this.password = password;
-    }
-
-
-    public String getName() {
+    @Override
+    public String toString() {
         return name;
     }
-
-    public int getID() {
-        return ID;
-    }
-
-    public String getPassword() {return password;}
 }

@@ -12,9 +12,12 @@ import java.util.Objects;
 public class CountryDao {
     private static ArrayList<Country> countries = null;
     public static ArrayList<Country> getAllCountries() throws SQLException {
-        if (countries != null) return countries;
+        if (countries != null) {
+            return countries;
+        } else {
+            countries = new ArrayList<Country>();
+        }
 
-        countries = new ArrayList<Country>();
         DBConnection.openConnection();
         String sqlStatement = "SELECT first_level_divisions.division, countries.country " +
                 "FROM first_level_divisions " +

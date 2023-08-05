@@ -77,7 +77,7 @@ public class Login implements Initializable {
         User loginUser = null;
         boolean isValid = true;
         try {
-            loginUser = Users.stream().filter(user -> user.getName().equals(username.getText()))
+            loginUser = Users.stream().filter(user -> user.name().equals(username.getText()))
                     .findFirst()
                     .get();
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class Login implements Initializable {
         }
 
         if (isValid) {
-            if (!loginUser.getPassword().equals(password.getText())) {
+            if (!loginUser.password().equals(password.getText())) {
                 // Display error, incorrect password
                 errorText.setText(resources.getString("ErrorPassword"));
                 isValid = false;
