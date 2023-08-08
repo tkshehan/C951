@@ -20,16 +20,13 @@ public class ContactDao {
         }
 
         DBConnection.openConnection();
-        String sqlStatement = "SELECT first_level_divisions.division, countries.country " +
-                "FROM first_level_divisions " +
-                "INNER JOIN countries ON first_level_divisions.Country_ID=countries.Country_ID +" +
-                "ORDER BY country";
+        String sqlStatement = "SELECT * from contacts";
         Query.makeQuery(sqlStatement);
         ResultSet result = Query.getResult();
 
         while (result.next()) {
-            int id = result.getInt("id");
-            String name = result.getString("name");
+            int id = result.getInt("contact_id");
+            String name = result.getString("contact_name");
             String email = result.getString("email");
 
             contacts.add(new Contact(id, name, email));

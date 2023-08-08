@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Appointment;
 
@@ -37,7 +38,7 @@ public class Schedule implements Initializable {
     public TableColumn startCol;
     public TableColumn endCol;
     public TableColumn userCol;
-    public TableColumn custCol;
+    public TableColumn customerCol;
     public TableColumn descriptionCol;
     public TableView<Appointment> appointmentTable;
     private ObservableList<Appointment> appointments;
@@ -52,7 +53,7 @@ public class Schedule implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
-        custCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        customerCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
@@ -70,12 +71,30 @@ public class Schedule implements Initializable {
 
     }
 
-    public void editAppointment(ActionEvent actionEvent) {
+    public void editAppointment(ActionEvent actionEvent) throws IOException {
+        Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
+        if(selected == null) return;
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditAppointment.fxml"));
+        Parent root = loader.load();
+
+        Stage newWindow = new Stage();
+
+        newWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        newWindow.setTitle("Edit Appointment");
+        newWindow.setScene(new Scene(root));
+
+        EditAppointment controller= loader.getController();
+        controller.setAppointment(selected);
+
+        newWindow.show();
     }
 
     public void deleteAppointment(ActionEvent actionEvent) {
+        Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
+        if(selected == null) return;
 
+        // Delete appointment
     }
 
 

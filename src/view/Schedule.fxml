@@ -42,7 +42,7 @@
                       <TableColumn fx:id="typeCol" prefWidth="100.66665649414062" text="Type" />
                       <TableColumn fx:id="startCol" prefWidth="135.33331298828125" text="Start" />
                       <TableColumn fx:id="endCol" prefWidth="140.66668701171875" text="End" />
-                      <TableColumn fx:id="custCol" minWidth="0.0" prefWidth="48.33331298828125" text="Cust ID" />
+                      <TableColumn fx:id="customerCol" minWidth="0.0" prefWidth="48.33331298828125" text="Cust ID" />
                       <TableColumn fx:id="userCol" prefWidth="50.33331298828125" text="User ID" />
                       <TableColumn fx:id="descriptionCol" prefWidth="122.0" text="Description" />
                   </columns>
