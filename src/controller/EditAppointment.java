@@ -55,16 +55,18 @@ public class EditAppointment extends AppointmentCtrl {
                     break;
                 }
             }
+
+            setBusinessHours();
         }
 
     @Override
     public void submitAppointment() {
         if(!validateAppointment()) return;
 
-        setAppointment.setTitle(titleField.getText());
-        setAppointment.setLocation(locationField.getText());
-        setAppointment.setType(typeField.getText());
-        setAppointment.setDescription(descriptionField.getText());
+        setAppointment.setTitle(titleField.getText().trim());
+        setAppointment.setLocation(locationField.getText().trim());
+        setAppointment.setType(typeField.getText().trim());
+        setAppointment.setDescription(descriptionField.getText().trim());
 
         setAppointment.setUserID(userCBox.getValue().id());
         setAppointment.setCustomerID(customerCBox.getValue().getId());

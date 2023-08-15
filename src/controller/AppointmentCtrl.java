@@ -35,6 +35,10 @@ public abstract class AppointmentCtrl implements Initializable {
     public ComboBox<AppointmentDuration> duration;
     public TextField descriptionField;
 
+    private final ZoneId BUSINESSTIMEZONE = ZoneId.of("American/New_York"); // American/New_York
+    private final int OPENHOUR = 8; // 8am
+    private final int CLOSEHOUR = 17; // 5pm
+
 
 
     @Override
@@ -43,6 +47,21 @@ public abstract class AppointmentCtrl implements Initializable {
         setCustomers();
         setUsers();
         setDurations();
+    }
+
+    protected void setBusinessHours() {
+        ZonedDateTime localTime = startDate.getValue().atStartOfDay(ZoneId.systemDefault());
+
+        // For every hour in local day, check if between business hours in businessTimeZone
+        for (int i = 0; i < 24; i++, localTime = localTime.plusHours(1)) {
+            int businessHour = localTime.withZoneSameInstant(BUSINESSTIMEZONE).getHour();
+            if(businessHour >= OPENHOUR && businessHour < CLOSEHOUR) {
+                for (int o = 0; o < 4; o++) {
+                    startTime.getItems().add(localTime.plusMinutes(o * 15).toLocalTime());
+                }
+            }
+        }
+
     }
 
     public abstract void submitAppointment();
@@ -138,24 +157,23 @@ public abstract class AppointmentCtrl implements Initializable {
 
         // Time must be checked against other appointment times for customer
         // Time must be between 8am-5pm Eastern Time
-        LocalDateTime localStart = LocalDateTime.of(startDate.getValue(), startTime.getValue());
-        LocalDateTime localEnd = localStart.plus(duration.getValue().getDuration());
-        int open = 8;
-        int close = 17;
+        ZoneId localZone = ZoneId.systemDefault();
+        ZonedDateTime localStart = ZonedDateTime.of(startDate.getValue(), startTime.getValue(), localZone);
+        ZonedDateTime localEnd = localStart.plus(duration.getValue().getDuration());
 
-        ZoneId ET = ZoneId.of("America/New_York");
-        ZonedDateTime etStart = localStart.atZone(ET);
-        ZonedDateTime etEnd = localEnd.atZone(ET);
+        ZonedDateTime businessStart = localStart.withZoneSameInstant(BUSINESSTIMEZONE);
+        ZonedDateTime businessEnd = localEnd.withZoneSameInstant(BUSINESSTIMEZONE);
 
-        if (etStart.getHour() < open || etStart.getHour() >= close
-                || etEnd.getHour() < open || etEnd.getHour() > close) {
+        if (businessStart.getHour() < OPENHOUR || businessStart.getHour() >= CLOSEHOUR
+                || businessEnd.getHour() < OPENHOUR || businessEnd.getHour() > CLOSEHOUR) {
             errorMessage += "All appointments must be between 8am and 5pm EST";
             valid = false;
-        } else if (etEnd.getHour() == close && etEnd.getMinute() > 0) {
+        } else if (businessEnd.getHour() == OPENHOUR && businessEnd.getMinute() > 0) {
             errorMessage += "All appointments must be between 8am and 5pm EST";
             valid = false;
         }
 
+        System.out.println(errorMessage);
         return valid;
     }
 
