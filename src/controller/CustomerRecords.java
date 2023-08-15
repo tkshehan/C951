@@ -63,7 +63,7 @@ public class CustomerRecords implements Initializable {
     private void initializeCountries() {
         countryCombo.getItems().clear();
         countryCombo.getItems().add("All Countries");
-      customers.stream().map(Customer::getCountry).distinct().sorted().forEach((country) -> {
+        customers.stream().map(Customer::getCountry).distinct().sorted().forEach((country) -> {
             countryCombo.getItems().add(country);
         });
     }

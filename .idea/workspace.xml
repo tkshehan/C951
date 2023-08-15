@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ccab6fb-d887-464c-88d7-b77e0ad9539e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/AppointmentCtrl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/AppointmentDuration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/ContactDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/ContactDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/AppointmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/AppointmentDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CustomerRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerRecords.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/EditAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditAppointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/NewAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/NewAppointment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/EditAppointment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/EditAppointment.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Schedule.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Schedule.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +123,10 @@
       <workItem from="1690897691845" duration="7328000" />
       <workItem from="1691067257531" duration="6813000" />
       <workItem from="1691244216822" duration="9207000" />
-      <workItem from="1691505322570" duration="7915000" />
+      <workItem from="1691505322570" duration="7944000" />
+      <workItem from="1691761987480" duration="6363000" />
+      <workItem from="1691847461372" duration="11703000" />
+      <workItem from="1692104464911" duration="4695000" />
     </task>
     <servers />
   </component>

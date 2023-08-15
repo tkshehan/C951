@@ -1,136 +1,97 @@
 package controller;
 
-import Database.ContactDao;
-import Database.CustomerDao;
-import Database.UserDao;
-import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import model.Appointment;
-import model.Contact;
-import model.Customer;
-import model.User;
+import Database.AppointmentDao;
+import javafx.scene.control.Button;
+import model.*;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.util.ResourceBundle;
 
-public class EditAppointment implements Initializable {
-
-    public Label windowTitle;
-    public TextField idField;
-    public TextField titleField;
-    public TextField locationField;
-    public TextField typeField;
-    public ComboBox<User> userCBox;
-    public ComboBox<Customer> customerCBox;
-    public ComboBox<Contact> contactCBox;
-    public DatePicker startDate;
-    public ComboBox<Time> startTime;
-    public ComboBox<String> duration;
-    public TextField descriptionField;
-
+public class EditAppointment extends AppointmentCtrl {
+    public Button cancel;
+    private Appointment setAppointment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setContacts();
-        setCustomers();
-        setUsers();
+        super.initialize(url, resourceBundle);
+
     }
 
     public void setAppointment(Appointment appointment) {
-        idField.setText(String.valueOf(appointment.getID()));
-        titleField.setText(appointment.getTitle());
-        locationField.setText(appointment.getLocation());
-        typeField.setText(appointment.getType());
-        descriptionField.setText(appointment.getDescription());
+            setAppointment = appointment;
 
-        LocalDateTime startLocal = appointment.getStart().toLocalDateTime();
-        startDate.setValue(startLocal.toLocalDate());
-        startTime.setValue(Time.valueOf(startLocal.toLocalTime()));
+            idField.setText(String.valueOf(appointment.getID()));
+            titleField.setText(appointment.getTitle());
+            locationField.setText(appointment.getLocation());
+            typeField.setText(appointment.getType());
+            descriptionField.setText(appointment.getDescription());
 
-        long milliseconds = appointment.getEnd().getTime() - appointment.getStart().getTime();
-        duration.setValue(parseTime(milliseconds));
+            LocalDateTime startLocal = appointment.getStart().toLocalDateTime();
+            startDate.setValue(startLocal.toLocalDate());
+            startTime.setValue(startLocal.toLocalTime());
 
-        for (Contact contact : contactCBox.getItems()) {
-            if (contact.id() == appointment.getContactID()) {
-                contactCBox.setValue(contact);
-                break;
+            Duration between = Duration.between(appointment.getStart().toLocalDateTime(), appointment.getEnd().toLocalDateTime());
+            duration.setValue(new AppointmentDuration(between));
+
+            for (Contact contact : contactCBox.getItems()) {
+                if (contact.id() == appointment.getContactID()) {
+                    contactCBox.setValue(contact);
+                    break;
+                }
+            }
+
+            for (User user : userCBox.getItems()) {
+                if (user.id() == appointment.getUserID()) {
+                    userCBox.setValue(user);
+                    break;
+                }
+            }
+
+            for (Customer customer : customerCBox.getItems()) {
+                if (customer.getId() == appointment.getCustomerID()) {
+                    customerCBox.setValue(customer);
+                    break;
+                }
             }
         }
-        for (User user : userCBox.getItems()) {
-            if (user.id() == appointment.getUserID()) {
-                userCBox.setValue(user);
-                break;
-            }
-        }
 
-        for (Customer customer : customerCBox.getItems()) {
-            if (customer.getId() == appointment.getCustomerID()) {
-                customerCBox.setValue(customer);
-                break;
-            }
-        }
+    @Override
+    public void submitAppointment() {
+        if(!validateAppointment()) return;
 
-    }
+        setAppointment.setTitle(titleField.getText());
+        setAppointment.setLocation(locationField.getText());
+        setAppointment.setType(typeField.getText());
+        setAppointment.setDescription(descriptionField.getText());
 
-    private String parseTime(long milliseconds) {
-        String duration = "";
-        long seconds = milliseconds / 1000;
-        int minutes = 0;
-        int hours = 0;
+        setAppointment.setUserID(userCBox.getValue().id());
+        setAppointment.setCustomerID(customerCBox.getValue().getId());
+        setAppointment.setContact(contactCBox.getValue().id());
 
-        while(seconds >= 3600) {
-            hours++;
-            seconds -= 3600;
-        }
-        while(seconds >= 60) {
-            minutes++;
-            seconds -= 60;
-        }
-        duration += hours + ":";
+        ZoneId UTC = ZoneId.of("UTC");
+        ZoneId localZone = ZoneId.systemDefault();
+        ZonedDateTime localStart = ZonedDateTime.of(startDate.getValue(), startTime.getValue(), localZone);
+        ZonedDateTime utcStart = localStart.withZoneSameInstant(UTC);
+        ZonedDateTime utcEnd = utcStart.plusMinutes(duration.getValue().getDuration().toMinutes());
 
-        if(minutes < 10) {
-            duration += 0;
-        }
-        duration += minutes;
+        // Without the LocalDateTime conversion, timestamp offsets the UTC time to the System time
+        Timestamp startStamp = Timestamp.valueOf(utcStart.toLocalDateTime());
+        Timestamp endStamp = Timestamp.valueOf(utcEnd.toLocalDateTime());
 
-        return duration;
-    }
+        setAppointment.setStart(startStamp);
+        setAppointment.setEnd(endStamp);
 
-
-
-    private void setCustomers() {
         try {
-            ObservableList<Customer> customers = CustomerDao.getAllCustomers();
-            customerCBox.setItems(customers);
-        } catch (SQLException e) {
+            AppointmentDao.updateAppointment(setAppointment);
+            cancel.fire();
+        }
+        catch(Exception e) {
             System.out.println(e);
-        }
-    }
-
-    private void setContacts() {
-        try {
-            ObservableList<Contact> contacts = ContactDao.getAllContacts();
-            contactCBox.setItems(contacts);
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
-    private void setUsers() {
-        try {
-            ObservableList<User> users = UserDao.getAllUsers();
-            userCBox.setItems(users);
-        } catch (Exception e) {
-          System.out.println(e);
         }
     }
 
 }
+
+

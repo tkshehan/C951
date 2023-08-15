@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Appointment;
 
@@ -79,6 +78,14 @@ public class Schedule implements Initializable {
         Parent root = loader.load();
 
         Stage newWindow = new Stage();
+        newWindow.setOnHiding(windowEvent -> {
+            try {
+                appointments = AppointmentDao.getAllAppointments();
+                appointmentTable.setItems(appointments);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
 
         newWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
         newWindow.setTitle("Edit Appointment");

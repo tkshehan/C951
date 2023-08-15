@@ -35,4 +35,31 @@ public class AppointmentDao {
         DBConnection.closeConnection();
         return allAppointments;
     }
+
+    public static void updateAppointment (Appointment appointment) {
+        DBConnection.openConnection();
+        String sqlStatement = "UPDATE appointments \n" +
+                "SET " +
+                "Title = '%s', ".formatted(appointment.getTitle()) +
+                "Description = '%s' ,".formatted(appointment.getDescription()) +
+                "Location = '%s' ,".formatted(appointment.getLocation()) +
+                "Type = '%s', ".formatted(appointment.getType()) +
+                "Customer_ID = %s, ".formatted(appointment.getCustomerID()) +
+                "User_ID = %s, ".formatted(appointment.getUserID()) +
+                "Contact_ID = %s, ".formatted(appointment.getContactID()) +
+                "Start = '%s', ".formatted(appointment.getStart()) +
+                "End = '%s' \n".formatted(appointment.getEnd()) +
+                "WHERE Appointment_ID = %s;".formatted(appointment.getID());
+        Query.makeQuery(sqlStatement);
+        System.out.println(Query.getResult());
+    }
+
+    public static void deleteAppointment (Appointment appointment) {
+
+    }
+
+    public static void createAppointment (Appointment appointment) {
+
+
+    }
 }

@@ -129,10 +129,10 @@
                </children>
             </HBox>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                  <Button mnemonicParsing="false" text="Cancel" />
-                <Button mnemonicParsing="false" text="Apply" />
-              </buttons>
+               <buttons>
+                  <Button mnemonicParsing="false" fx:id="cancel" onAction="#closeWindow" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#submitAppointment" text="Apply" />
+               </buttons>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>

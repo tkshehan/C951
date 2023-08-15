@@ -113,7 +113,6 @@ public class Login implements Initializable {
         log.info(attempt);
     }
 
-
     private void toSchedule(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
         Parent root = loader.load();
