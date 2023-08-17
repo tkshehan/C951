@@ -9,6 +9,10 @@
       <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/AppointmentCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentCtrl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/EditAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditAppointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/NewAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/NewAppointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/EditAppointment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/EditAppointment.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +123,8 @@
       <workItem from="1691505322570" duration="7944000" />
       <workItem from="1691761987480" duration="6363000" />
       <workItem from="1691847461372" duration="11703000" />
-      <workItem from="1692104464911" duration="9017000" />
+      <workItem from="1692104464911" duration="9506000" />
+      <workItem from="1692277715213" duration="13168000" />
     </task>
     <servers />
   </component>

@@ -66,7 +66,12 @@ public class Schedule implements Initializable {
     }
 
 
-    public void newAppointment(ActionEvent actionEvent) {
+    public void newAppointment(ActionEvent actionEvent) throws IOException {
+        NewAppointment controller = new NewAppointment(appointments);
+        Stage newWindow = appointmentWindow(actionEvent, controller);
+
+        newWindow.setTitle("New Appointment");
+        newWindow.show();
 
     }
 
@@ -74,7 +79,16 @@ public class Schedule implements Initializable {
         Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
         if(selected == null) return;
 
+        EditAppointment controller = new EditAppointment(appointments, selected);
+        Stage newWindow = appointmentWindow(actionEvent, controller);
+
+        newWindow.setTitle("Edit Appointment");
+        newWindow.show();
+    }
+
+    public Stage appointmentWindow(ActionEvent actionEvent, AppointmentCtrl controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditAppointment.fxml"));
+        loader.setController(controller);
         Parent root = loader.load();
 
         Stage newWindow = new Stage();
@@ -88,13 +102,9 @@ public class Schedule implements Initializable {
         });
 
         newWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-        newWindow.setTitle("Edit Appointment");
         newWindow.setScene(new Scene(root));
 
-        EditAppointment controller= loader.getController();
-        controller.setAppointment(selected);
-
-        newWindow.show();
+        return newWindow;
     }
 
     public void deleteAppointment(ActionEvent actionEvent) {

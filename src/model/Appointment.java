@@ -51,7 +51,7 @@ public class Appointment {
         return contactID;
     }
 
-    public void setContact(int contact) {
+    public void setContact(int contactID) {
         this.contactID = contactID;
     }
 

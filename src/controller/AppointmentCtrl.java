@@ -5,13 +5,16 @@ import Database.CustomerDao;
 import Database.UserDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
@@ -34,12 +37,16 @@ public abstract class AppointmentCtrl implements Initializable {
     public ComboBox<LocalTime> startTime;
     public ComboBox<AppointmentDuration> duration;
     public TextField descriptionField;
+    public Text errorText;
 
-    private final ZoneId BUSINESSTIMEZONE = ZoneId.of("American/New_York"); // American/New_York
+    private ObservableList<Appointment> appointments;
+    private final ZoneId BUSINESSTIMEZONE = ZoneId.of("America/New_York"); // America/New_York
     private final int OPENHOUR = 8; // 8am
     private final int CLOSEHOUR = 17; // 5pm
 
-
+    AppointmentCtrl(ObservableList<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,9 +68,14 @@ public abstract class AppointmentCtrl implements Initializable {
                 }
             }
         }
-
     }
 
+    @FXML
+    public void onDateSelected(ActionEvent actionEvent) {
+        setBusinessHours();
+    }
+
+    @FXML
     public abstract void submitAppointment();
 
     private void setDurations() {
@@ -107,76 +119,87 @@ public abstract class AppointmentCtrl implements Initializable {
 
     protected boolean validateAppointment() {
         String errorMessage = "";
-        boolean valid = true;
 
         String title = titleField.getText().trim();
         if (title.isEmpty()) {
             errorMessage = errorMessage.concat(
                     "Title must not be empty\n"
             );
-            valid = false;
         }
 
         String location = locationField.getText().trim();
         if (location.isEmpty()) {
             errorMessage = errorMessage.concat("Location must not be empty\n");
-            valid = false;
         }
 
         String type = typeField.getText().trim();
         if (type.isEmpty()) {
             errorMessage = errorMessage.concat("Type must not be empty\n");
-            valid = false;
         }
 
         String description = descriptionField.getText().trim();
         if (description.isEmpty()) {
             errorMessage = errorMessage.concat("Description must not be empty\n");
-            valid = false;
         }
 
-        // check for null
-        //user, customer, contact
-        if (userCBox.getValue() == null) {
-            errorMessage += "Select a User\n";
-            valid = false;
+        if (userCBox.getValue() == null || customerCBox.getValue() == null || contactCBox.getValue() == null) {
+            errorMessage += "Select a User, Customer, and Contact\n";
         }
 
 
-        if (customerCBox.getValue() == null) {
-            errorMessage += "Select a Customer\n";
-            valid = false;
-        }
 
+        if (startDate.getValue() == null || startTime.getValue() == null || duration.getValue() == null) {
+            errorMessage += "Select an start date, time, and duration";
+        } else {
+            ZoneId localZone = ZoneId.systemDefault();
+            ZonedDateTime localStart = ZonedDateTime.of(startDate.getValue(), startTime.getValue(), localZone);
+            ZonedDateTime localEnd = localStart.plus(duration.getValue().getDuration());
 
-        if (contactCBox.getValue() == null) {
-            errorMessage += "Select a Contact\n";
-            valid = false;
-        }
-
-
-        // Time must be checked against other appointment times for customer
-        // Time must be between 8am-5pm Eastern Time
-        ZoneId localZone = ZoneId.systemDefault();
-        ZonedDateTime localStart = ZonedDateTime.of(startDate.getValue(), startTime.getValue(), localZone);
-        ZonedDateTime localEnd = localStart.plus(duration.getValue().getDuration());
-
-        ZonedDateTime businessStart = localStart.withZoneSameInstant(BUSINESSTIMEZONE);
-        ZonedDateTime businessEnd = localEnd.withZoneSameInstant(BUSINESSTIMEZONE);
-
-        if (businessStart.getHour() < OPENHOUR || businessStart.getHour() >= CLOSEHOUR
+            // Time must be between 8am-5pm Eastern Time
+            ZonedDateTime businessStart = localStart.withZoneSameInstant(BUSINESSTIMEZONE);
+            ZonedDateTime businessEnd = localEnd.withZoneSameInstant(BUSINESSTIMEZONE);
+            if (businessStart.getHour() < OPENHOUR || businessStart.getHour() >= CLOSEHOUR
                 || businessEnd.getHour() < OPENHOUR || businessEnd.getHour() > CLOSEHOUR) {
-            errorMessage += "All appointments must be between 8am and 5pm EST";
-            valid = false;
-        } else if (businessEnd.getHour() == OPENHOUR && businessEnd.getMinute() > 0) {
-            errorMessage += "All appointments must be between 8am and 5pm EST";
-            valid = false;
+                errorMessage += "All appointments must be between 8am and 5pm EST\n" ;
+            } else if (businessEnd.getHour() == OPENHOUR && businessEnd.getMinute() > 0) {
+                errorMessage += "All appointments must be between 8am and 5pm EST\n";
+            }
+
+            // Appointment must not overlap with another appointment for same customer
+            if (customerCBox.getValue() != null) {
+                LocalDateTime appStart = localStart.toLocalDateTime();
+                LocalDateTime appEnd = localEnd.toLocalDateTime();
+                int customerId = customerCBox.getValue().getId();
+                FilteredList<Appointment> customerAppointments = appointments.filtered(
+                        appointment -> appointment.getCustomerID() == customerId);
+
+                boolean isAppointmentConflict = customerAppointments.stream().anyMatch(
+                        appointment -> {
+                            LocalDateTime checkStart = appointment.getStart().toLocalDateTime().minusSeconds(1);
+                            LocalDateTime checkEnd = appointment.getEnd().toLocalDateTime().plusSeconds(1);
+                            if (this instanceof EditAppointment && String.valueOf(appointment.getID()).equals(idField.getText())) {
+                                System.out.println("Same ID");
+                                return false;
+                            }
+                            return appStart.isAfter(checkStart) && appStart.isBefore(checkEnd) ||
+                                    appEnd.isAfter(checkStart) && appEnd.isBefore(checkEnd);
+                        }
+                );
+                if(isAppointmentConflict) {
+                    errorMessage += "Customer already has appointment during this timeframe\n";
+                }
+            }
         }
 
-        System.out.println(errorMessage);
-        return valid;
+        if( errorMessage.length() > 0){
+            errorText.setText(errorMessage);
+            return false;
+        } else {
+            return true;
+        }
     }
 
+    @FXML
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();

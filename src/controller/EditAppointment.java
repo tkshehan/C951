@@ -1,6 +1,7 @@
 package controller;
 
 import Database.AppointmentDao;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import model.*;
 
@@ -11,16 +12,23 @@ import java.util.ResourceBundle;
 
 public class EditAppointment extends AppointmentCtrl {
     public Button cancel;
-    private Appointment setAppointment;
+
+    private Appointment selectedAppointment;
+
+
+    EditAppointment(ObservableList<Appointment> appointments, Appointment selectedAppointment) {
+        super(appointments);
+        this.selectedAppointment = selectedAppointment;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
-
+        setAppointment(selectedAppointment);
     }
 
     public void setAppointment(Appointment appointment) {
-            setAppointment = appointment;
+            selectedAppointment = appointment;
 
             idField.setText(String.valueOf(appointment.getID()));
             titleField.setText(appointment.getTitle());
@@ -63,14 +71,14 @@ public class EditAppointment extends AppointmentCtrl {
     public void submitAppointment() {
         if(!validateAppointment()) return;
 
-        setAppointment.setTitle(titleField.getText().trim());
-        setAppointment.setLocation(locationField.getText().trim());
-        setAppointment.setType(typeField.getText().trim());
-        setAppointment.setDescription(descriptionField.getText().trim());
+        selectedAppointment.setTitle(titleField.getText().trim());
+        selectedAppointment.setLocation(locationField.getText().trim());
+        selectedAppointment.setType(typeField.getText().trim());
+        selectedAppointment.setDescription(descriptionField.getText().trim());
 
-        setAppointment.setUserID(userCBox.getValue().id());
-        setAppointment.setCustomerID(customerCBox.getValue().getId());
-        setAppointment.setContact(contactCBox.getValue().id());
+        selectedAppointment.setUserID(userCBox.getValue().id());
+        selectedAppointment.setCustomerID(customerCBox.getValue().getId());
+        selectedAppointment.setContact(contactCBox.getValue().id());
 
         ZoneId UTC = ZoneId.of("UTC");
         ZoneId localZone = ZoneId.systemDefault();
@@ -82,11 +90,11 @@ public class EditAppointment extends AppointmentCtrl {
         Timestamp startStamp = Timestamp.valueOf(utcStart.toLocalDateTime());
         Timestamp endStamp = Timestamp.valueOf(utcEnd.toLocalDateTime());
 
-        setAppointment.setStart(startStamp);
-        setAppointment.setEnd(endStamp);
+        selectedAppointment.setStart(startStamp);
+        selectedAppointment.setEnd(endStamp);
 
         try {
-            AppointmentDao.updateAppointment(setAppointment);
+            AppointmentDao.updateAppointment(selectedAppointment);
             cancel.fire();
         }
         catch(Exception e) {
