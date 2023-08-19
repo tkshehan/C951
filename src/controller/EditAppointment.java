@@ -11,7 +11,7 @@ import java.time.*;
 import java.util.ResourceBundle;
 
 public class EditAppointment extends AppointmentCtrl {
-    public Button cancel;
+
 
     private Appointment selectedAppointment;
 
@@ -71,10 +71,10 @@ public class EditAppointment extends AppointmentCtrl {
     public void submitAppointment() {
         if(!validateAppointment()) return;
 
-        selectedAppointment.setTitle(titleField.getText().trim());
-        selectedAppointment.setLocation(locationField.getText().trim());
-        selectedAppointment.setType(typeField.getText().trim());
-        selectedAppointment.setDescription(descriptionField.getText().trim());
+        selectedAppointment.setTitle(titleField.getText().trim().replace("'", ""));
+        selectedAppointment.setLocation(locationField.getText().trim().replace("'", ""));
+        selectedAppointment.setType(typeField.getText().trim().replace("'", ""));
+        selectedAppointment.setDescription(descriptionField.getText().trim().replace("'", ""));
 
         selectedAppointment.setUserID(userCBox.getValue().id());
         selectedAppointment.setCustomerID(customerCBox.getValue().getId());

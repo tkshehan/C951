@@ -10,10 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
@@ -38,6 +35,7 @@ public abstract class AppointmentCtrl implements Initializable {
     public ComboBox<AppointmentDuration> duration;
     public TextField descriptionField;
     public Text errorText;
+    public Button cancel;
 
     private ObservableList<Appointment> appointments;
     private final ZoneId BUSINESSTIMEZONE = ZoneId.of("America/New_York"); // America/New_York
@@ -70,13 +68,7 @@ public abstract class AppointmentCtrl implements Initializable {
         }
     }
 
-    @FXML
-    public void onDateSelected(ActionEvent actionEvent) {
-        setBusinessHours();
-    }
 
-    @FXML
-    public abstract void submitAppointment();
 
     private void setDurations() {
         ObservableList<AppointmentDuration> durations = FXCollections.observableArrayList();
@@ -156,12 +148,12 @@ public abstract class AppointmentCtrl implements Initializable {
             ZonedDateTime localEnd = localStart.plus(duration.getValue().getDuration());
 
             // Time must be between 8am-5pm Eastern Time
-            ZonedDateTime businessStart = localStart.withZoneSameInstant(BUSINESSTIMEZONE);
-            ZonedDateTime businessEnd = localEnd.withZoneSameInstant(BUSINESSTIMEZONE);
-            if (businessStart.getHour() < OPENHOUR || businessStart.getHour() >= CLOSEHOUR
-                || businessEnd.getHour() < OPENHOUR || businessEnd.getHour() > CLOSEHOUR) {
+            ZonedDateTime appZonedStart = localStart.withZoneSameInstant(BUSINESSTIMEZONE);
+            ZonedDateTime appZonedEnd = localEnd.withZoneSameInstant(BUSINESSTIMEZONE);
+            if (appZonedStart.getHour() < OPENHOUR || appZonedStart.getHour() >= CLOSEHOUR
+                || appZonedEnd.getHour() < OPENHOUR || appZonedEnd.getHour() > CLOSEHOUR) {
                 errorMessage += "All appointments must be between 8am and 5pm EST\n" ;
-            } else if (businessEnd.getHour() == OPENHOUR && businessEnd.getMinute() > 0) {
+            } else if (appZonedEnd.getHour() == CLOSEHOUR && appZonedEnd.getMinute() > 0) {
                 errorMessage += "All appointments must be between 8am and 5pm EST\n";
             }
 
@@ -177,8 +169,8 @@ public abstract class AppointmentCtrl implements Initializable {
                         appointment -> {
                             LocalDateTime checkStart = appointment.getStart().toLocalDateTime().minusSeconds(1);
                             LocalDateTime checkEnd = appointment.getEnd().toLocalDateTime().plusSeconds(1);
+                            // Ignore appointments with the same ID
                             if (this instanceof EditAppointment && String.valueOf(appointment.getID()).equals(idField.getText())) {
-                                System.out.println("Same ID");
                                 return false;
                             }
                             return appStart.isAfter(checkStart) && appStart.isBefore(checkEnd) ||
@@ -199,6 +191,12 @@ public abstract class AppointmentCtrl implements Initializable {
         }
     }
 
+    @FXML
+    public void onDateSelected(ActionEvent actionEvent) {
+        setBusinessHours();
+    }
+    @FXML
+    public abstract void submitAppointment();
     @FXML
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

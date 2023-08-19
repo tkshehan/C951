@@ -56,12 +56,7 @@ public class Schedule implements Initializable {
         userCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        try {
-             appointments = AppointmentDao.getAllAppointments();
-             appointmentTable.setItems(appointments);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        refreshAppointments();
         displayAll.fire();
     }
 
@@ -93,12 +88,7 @@ public class Schedule implements Initializable {
 
         Stage newWindow = new Stage();
         newWindow.setOnHiding(windowEvent -> {
-            try {
-                appointments = AppointmentDao.getAllAppointments();
-                appointmentTable.setItems(appointments);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            refreshAppointments();
         });
 
         newWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
@@ -111,9 +101,22 @@ public class Schedule implements Initializable {
         Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
         if(selected == null) return;
 
-        // Delete appointment
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Appointment with ID " + selected.getID() + ". \n Do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            AppointmentDao.deleteAppointment(selected);
+            refreshAppointments();
+        }
     }
 
+    public void refreshAppointments() {
+        try {
+            appointments = AppointmentDao.getAllAppointments();
+            appointmentTable.setItems(appointments);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     public void quit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");

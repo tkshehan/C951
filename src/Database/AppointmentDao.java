@@ -51,15 +51,31 @@ public class AppointmentDao {
                 "End = '%s' \n".formatted(appointment.getEnd()) +
                 "WHERE Appointment_ID = %s;".formatted(appointment.getID());
         Query.makeQuery(sqlStatement);
-        System.out.println(Query.getResult());
     }
 
     public static void deleteAppointment (Appointment appointment) {
+        DBConnection.openConnection();
+        String sqlStatement = "DELETE FROM appointments WHERE Appointment_ID = %s;".formatted(appointment.getID());
+        Query.makeQuery(sqlStatement);
 
     }
 
     public static void createAppointment (Appointment appointment) {
-
-
+        DBConnection.openConnection();
+        String sqlStatement = ("INSERT INTO appointments(title, description, location, type, start, end, " +
+                "customer_id, user_id, contact_id) " +
+                "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');")
+                .formatted(
+                  appointment.getTitle(),
+                  appointment.getDescription(),
+                  appointment.getLocation(),
+                  appointment.getType(),
+                  appointment.getStart(),
+                  appointment.getEnd(),
+                  appointment.getCustomerID(),
+                  appointment.getUserID(),
+                  appointment.getContactID()
+                );
+        Query.makeQuery(sqlStatement);
     }
 }
