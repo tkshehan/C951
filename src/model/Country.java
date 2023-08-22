@@ -3,12 +3,11 @@ package model;
 import java.util.ArrayList;
 
 public class Country {
-    private String name;
-    private ArrayList<String> divisions;
+    private final String name;
+    private final ArrayList<String> divisions = new ArrayList<String>();
 
     public Country(String name) {
         this.name = name;
-        this.divisions = divisions;
     }
 
     public String getName() {
@@ -21,5 +20,9 @@ public class Country {
 
     public ArrayList<String> getDivisions() {
         return divisions;
+    }
+
+    public String toString() {
+        return name;
     }
 }

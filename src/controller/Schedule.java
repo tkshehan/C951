@@ -81,8 +81,8 @@ public class Schedule implements Initializable {
         newWindow.show();
     }
 
-    public Stage appointmentWindow(ActionEvent actionEvent, AppointmentCtrl controller) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditAppointment.fxml"));
+    private Stage appointmentWindow(ActionEvent actionEvent, AppointmentCtrl controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Appointment.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
 

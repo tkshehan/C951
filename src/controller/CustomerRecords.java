@@ -1,5 +1,6 @@
 package controller;
 
+import Database.AppointmentDao;
 import Database.CustomerDao;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 import model.Customer;
 
 import java.io.IOException;
@@ -51,12 +53,7 @@ public class CustomerRecords implements Initializable {
         divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
 
-        try {
-            customers = CustomerDao.getAllCustomers();
-            customerTable.setItems(customers);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        refreshCustomers();
         initializeCountries();
     }
 
@@ -77,6 +74,15 @@ public class CustomerRecords implements Initializable {
         stateComboBox.setDisable(false);
     }
 
+    private void refreshCustomers() {
+        try {
+            customers = CustomerDao.getAllCustomers();
+            customerTable.setItems(customers);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public void quit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -88,10 +94,46 @@ public class CustomerRecords implements Initializable {
     public void newCustomer(ActionEvent actionEvent) {
     }
 
-    public void editCustomer(ActionEvent actionEvent) {
+    public void editCustomer(ActionEvent actionEvent) throws IOException {
+        Customer selected = customerTable.getSelectionModel().getSelectedItem();
+        if(selected == null) return;
+
+        EditCustomer controller = new EditCustomer(selected);
+        Stage newWindow = customerWindow(actionEvent, controller);
+
+        newWindow.setTitle("Edit Customer");
+        newWindow.show();
     }
 
     public void deleteCustomer(ActionEvent actionEvent) {
+        Customer selected = customerTable.getSelectionModel().getSelectedItem();
+        if(selected == null) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Customer with ID " + selected.getId() + ". \n Do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+       //     AppointmentDao.deleteAppointment(selected);
+
+            refreshCustomers();
+            initializeCountries();
+        }
+    }
+
+    private Stage customerWindow(ActionEvent actionEvent, CustomerCtrl controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Customer.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Stage newWindow = new Stage();
+        newWindow.setOnHiding(windowEvent -> {
+            refreshCustomers();
+            initializeCountries();
+        });
+
+        newWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        newWindow.setScene(new Scene(root));
+
+        return newWindow;
     }
 
     public void toAppointments(ActionEvent actionEvent) throws IOException {
@@ -131,4 +173,7 @@ public class CustomerRecords implements Initializable {
             customerTable.setItems(stateCustomers);
         }
     }
+
+
 }
+

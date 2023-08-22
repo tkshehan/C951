@@ -21,7 +21,7 @@ public class CountryDao {
         DBConnection.openConnection();
         String sqlStatement = "SELECT first_level_divisions.division, countries.country " +
                 "FROM first_level_divisions " +
-                "INNER JOIN countries ON first_level_divisions.Country_ID=countries.Country_ID +" +
+                "INNER JOIN countries ON first_level_divisions.Country_ID=countries.Country_ID " +
                 "ORDER BY country";
         Query.makeQuery(sqlStatement);
         ResultSet result = Query.getResult();
