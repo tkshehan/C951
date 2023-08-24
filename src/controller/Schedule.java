@@ -60,6 +60,16 @@ public class Schedule implements Initializable {
         displayAll.fire();
     }
 
+    public static void navigateTo(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(CustomerRecords.class.getResource("/view/Schedule.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 835, 500);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     public void newAppointment(ActionEvent actionEvent) throws IOException {
         NewAppointment controller = new NewAppointment(appointments);
@@ -127,13 +137,7 @@ public class Schedule implements Initializable {
     }
 
     public void toCustomerRecords(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CustomerRecords.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 835, 500);
-        stage.setScene(scene);
-        stage.show();
+        CustomerRecords.navigateTo(actionEvent);
     }
 
     public void displayAll(ActionEvent actionEvent) {
@@ -162,5 +166,9 @@ public class Schedule implements Initializable {
             return result <= 0;
         }).collect(Collectors.toCollection(FXCollections::observableArrayList));
         appointmentTable.setItems(weekAppointments);
+    }
+
+    public void toReports(ActionEvent actionEvent) throws IOException {
+        Reports.navigateTo(actionEvent);
     }
 }

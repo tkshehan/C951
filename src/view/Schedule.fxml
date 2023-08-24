@@ -21,14 +21,16 @@
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-        <HBox layoutX="51.0" layoutY="460.0" spacing="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <HBox layoutX="51.0" layoutY="460.0" prefHeight="25.0" prefWidth="649.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#newAppointment" text="New Appointment" />
                 <Button mnemonicParsing="false" onAction="#editAppointment" text="Edit Appointment" />
                 <Button mnemonicParsing="false" onAction="#deleteAppointment" text="Delete Appointment" />
-            <Pane prefHeight="25.0" HBox.hgrow="ALWAYS" />
-                <Button mnemonicParsing="false" onAction="#toCustomerRecords" text="To Customer Records" />
-                <Button mnemonicParsing="false" onAction="#quit" text="Quit" />
+                <Pane prefHeight="25.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
+                <Button layoutX="235.0" layoutY="10.0" mnemonicParsing="false" onAction="#toReports" text="Reports" />
+                <Button layoutX="707.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerRecords" text="Customers" />
+                <Button layoutX="647.0" layoutY="10.0" mnemonicParsing="false" disable="true" text="Schedule" />
+                <Button layoutX="361.0" layoutY="10.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
             </children>
         </HBox>
       <AnchorPane layoutX="50.0" layoutY="91.0" prefHeight="356.0" prefWidth="693.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="90.0">

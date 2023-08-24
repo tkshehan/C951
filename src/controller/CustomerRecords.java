@@ -57,6 +57,16 @@ public class CustomerRecords implements Initializable {
         initializeCountries();
     }
 
+    public static void navigateTo(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(CustomerRecords.class.getResource("/view/CustomerRecords.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 835, 500);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void initializeCountries() {
         countryCombo.getItems().clear();
         countryCombo.getItems().add("All Countries");
@@ -141,15 +151,14 @@ public class CustomerRecords implements Initializable {
         return newWindow;
     }
 
-    public void toAppointments(ActionEvent actionEvent) throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 835, 500);
-            stage.setScene(scene);
-            stage.show();
+    public void toSchedule(ActionEvent actionEvent) throws IOException {
+        Schedule.navigateTo(actionEvent);
     }
+
+    public void toReports(ActionEvent actionEvent) throws IOException {
+        Reports.navigateTo(actionEvent);
+    }
+
 
     public void selectCountry(ActionEvent actionEvent) {
         stateComboBox.getItems().clear();

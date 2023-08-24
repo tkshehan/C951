@@ -114,13 +114,7 @@ public class Login implements Initializable {
     }
 
     private void toSchedule(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Schedule.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 835, 500);
-        stage.setScene(scene);
-        stage.show();
+        Schedule.navigateTo(actionEvent);
     }
 
     public void quit(ActionEvent actionEvent) {
