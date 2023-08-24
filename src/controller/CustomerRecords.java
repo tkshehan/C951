@@ -19,6 +19,7 @@ import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -124,13 +125,22 @@ public class CustomerRecords implements Initializable {
         Customer selected = customerTable.getSelectionModel().getSelectedItem();
         if(selected == null) return;
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Customer with ID " + selected.getId() + ". \n Do you want to continue?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            CustomerDao.deleteCustomer(selected);
+        try {
+            if(AppointmentDao.checkCustomerAppointments(selected)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Customer cannot be deleted with existing Appointments");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Customer with ID " + selected.getId() + ". \n Do you want to continue?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    CustomerDao.deleteCustomer(selected);
 
-            refreshCustomers();
-            initializeCountries();
+                    refreshCustomers();
+                    initializeCountries();
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

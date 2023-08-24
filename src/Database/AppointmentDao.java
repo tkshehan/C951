@@ -3,6 +3,7 @@ package Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
+import model.Customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,11 +62,12 @@ public class AppointmentDao {
         DBConnection.closeConnection();
     }
 
+
     public static void createAppointment (Appointment appointment) {
         DBConnection.openConnection();
-        String sqlStatement = ("INSERT INTO appointments(title, description, location, type, start, end, " +
+        String sqlStatement = "INSERT INTO appointments(title, description, location, type, start, end, " +
                 "customer_id, user_id, contact_id) " +
-                "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');")
+                "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');"
                 .formatted(
                   appointment.getTitle(),
                   appointment.getDescription(),
@@ -79,5 +81,13 @@ public class AppointmentDao {
                 );
         Query.makeQuery(sqlStatement);
         DBConnection.closeConnection();
+    }
+
+    public static boolean checkCustomerAppointments (Customer customer) throws SQLException {
+        DBConnection.openConnection();
+        String sqlStatement = "SELECT 1 FROM appointments WHERE Customer_ID = '%s';".formatted(customer.getId());
+        Query.makeQuery(sqlStatement);
+
+        return Query.getResult().next();
     }
 }
