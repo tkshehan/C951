@@ -91,7 +91,12 @@ public class CustomerRecords implements Initializable {
         }
     }
 
-    public void newCustomer(ActionEvent actionEvent) {
+    public void newCustomer(ActionEvent actionEvent) throws IOException {
+        NewCustomer controller = new NewCustomer();
+        Stage newWindow = customerWindow(actionEvent, controller);
+
+        newWindow.setTitle("New Customer");
+        newWindow.show();
     }
 
     public void editCustomer(ActionEvent actionEvent) throws IOException {
@@ -112,7 +117,7 @@ public class CustomerRecords implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Customer with ID " + selected.getId() + ". \n Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-       //     AppointmentDao.deleteAppointment(selected);
+            CustomerDao.deleteCustomer(selected);
 
             refreshCustomers();
             initializeCountries();
@@ -156,7 +161,7 @@ public class CustomerRecords implements Initializable {
         } else {
             countryCustomers = customers.stream()
                     .filter(customer -> Objects.equals(customer.getCountry(), country))
-                    .sorted().collect(Collectors.toCollection(FXCollections::observableArrayList));
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
             customerTable.setItems(countryCustomers);
             initializeStates(countryCustomers);
         }
@@ -169,7 +174,7 @@ public class CustomerRecords implements Initializable {
         } else {
             ObservableList<Customer> stateCustomers = countryCustomers.stream()
                     .filter(customer -> Objects.equals(customer.getDivision(), state))
-                    .sorted().collect(Collectors.toCollection(FXCollections::observableArrayList));
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
             customerTable.setItems(stateCustomers);
         }
     }

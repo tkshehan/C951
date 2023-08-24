@@ -51,13 +51,14 @@ public class AppointmentDao {
                 "End = '%s' \n".formatted(appointment.getEnd()) +
                 "WHERE Appointment_ID = %s;".formatted(appointment.getID());
         Query.makeQuery(sqlStatement);
+        DBConnection.closeConnection();
     }
 
     public static void deleteAppointment (Appointment appointment) {
         DBConnection.openConnection();
         String sqlStatement = "DELETE FROM appointments WHERE Appointment_ID = %s;".formatted(appointment.getID());
         Query.makeQuery(sqlStatement);
-
+        DBConnection.closeConnection();
     }
 
     public static void createAppointment (Appointment appointment) {
@@ -77,5 +78,6 @@ public class AppointmentDao {
                   appointment.getContactID()
                 );
         Query.makeQuery(sqlStatement);
+        DBConnection.closeConnection();
     }
 }

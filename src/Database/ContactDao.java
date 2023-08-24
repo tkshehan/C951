@@ -34,4 +34,6 @@ public class ContactDao {
         DBConnection.closeConnection();
         return contacts;
     }
+
+
 }

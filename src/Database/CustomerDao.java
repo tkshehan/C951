@@ -33,4 +33,63 @@ public class CustomerDao {
         DBConnection.closeConnection();
         return customers;
     }
+    public static void updateCustomer(Customer customer) {
+        DBConnection.openConnection();
+        Query.makeQuery(
+                "SELECT DIVISION_ID FROM first_level_divisions \n" +
+                        "WHERE Division = '%s'".formatted(customer.getDivision())
+        );
+        int divisionID;
+        try {
+            Query.getResult().next();
+            divisionID = Query.getResult().getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sqlStatement = "UPDATE customers \n" +
+                "SET " +
+                "Customer_Name = '%s', ".formatted(customer.getName()) +
+                "Address = '%s', ".formatted(customer.getAddress()) +
+                "Postal_Code = '%s', ".formatted(customer.getPostalCode()) +
+                "Phone = '%s', ".formatted(customer.getPhoneNumber()) +
+                "Division_ID = '%s' \n".formatted(divisionID) +
+                "WHERE Customer_ID = '%s';".formatted(customer.getId());
+        Query.makeQuery(sqlStatement);
+
+        DBConnection.closeConnection();
+    }
+
+    public static void createCustomer(Customer customer) {
+        DBConnection.openConnection();
+        Query.makeQuery(
+                "SELECT DIVISION_ID FROM first_level_divisions \n" +
+                        "WHERE Division = '%s'".formatted(customer.getDivision())
+        );
+        int divisionID;
+        try {
+            Query.getResult().next();
+            divisionID = Query.getResult().getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sqlStatement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) " +
+                "VALUES('%s', '%s', '%s', '%s', '%s');".formatted(
+                        customer.getName(),
+                        customer.getAddress(),
+                        customer.getPostalCode(),
+                        customer.getPhoneNumber(),
+                        divisionID
+                );
+        Query.makeQuery(sqlStatement);
+        DBConnection.closeConnection();
+    }
+
+    public static void deleteCustomer(Customer customer) {
+        DBConnection.openConnection();
+        String sqlStatement = "DELETE FROM customers WHERE Customer_ID = %s;".formatted(customer.getId());
+        Query.makeQuery(sqlStatement);
+        DBConnection.closeConnection();
+    }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import Database.CustomerDao;
 import javafx.event.ActionEvent;
 import model.Country;
 import model.Customer;
@@ -24,7 +25,20 @@ public class EditCustomer extends CustomerCtrl {
 
     @Override
     public void submitCustomer(ActionEvent actionEvent) {
+        if(!validateCustomer()) return;
 
+        selectedCustomer.setName(nameField.getText().trim().replace("'", ""));
+        selectedCustomer.setAddress(addressField.getText().trim().replace("'", ""));
+        selectedCustomer.setCountry(countryCBox.getValue().getName().trim().replace("'", ""));
+        selectedCustomer.setDivision(divisionCBox.getValue().trim().replace("'", ""));
+        selectedCustomer.setPostalCode(postalField.getText().trim().replace("'", ""));
+        selectedCustomer.setPhoneNumber(phoneField.getText().trim().replace("'", ""));
+        try {
+            CustomerDao.updateCustomer(selectedCustomer);
+            cancel.fire();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     private void setCustomerFields() {

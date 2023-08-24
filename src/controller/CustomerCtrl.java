@@ -117,7 +117,5 @@ public abstract class CustomerCtrl implements Initializable {
 
     @FXML
     public abstract void submitCustomer(ActionEvent actionEvent);
-
-
 }
 
