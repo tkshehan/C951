@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ccab6fb-d887-464c-88d7-b77e0ad9539e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Database/ReportsDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/reports/AppointmentsByMonthAndType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login_activity.txt.lck" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/AppointmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/AppointmentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/CustomerRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerRecords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Reports.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Reports.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Contact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Reports.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Reports.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,6 +131,8 @@
       <workItem from="1692712717685" duration="10000" />
       <workItem from="1692712812308" duration="10109000" />
       <workItem from="1692881818621" duration="9015000" />
+      <workItem from="1693053668400" duration="3041000" />
+      <workItem from="1693057279982" duration="12338000" />
     </task>
     <servers />
   </component>

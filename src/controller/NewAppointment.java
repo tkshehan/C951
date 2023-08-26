@@ -40,7 +40,7 @@ public class NewAppointment extends AppointmentCtrl {
         Appointment newAppointment = new Appointment(-1,
                 titleField.getText().trim().replace("'", ""),
                 locationField.getText().trim().replace("'", ""),
-                contactCBox.getValue().id(),
+                contactCBox.getValue().getId(),
                 typeField.getText().trim().replace("'", ""),
                 startStamp,
                 endStamp,

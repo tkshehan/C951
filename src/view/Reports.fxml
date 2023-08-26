@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.Reports"
-            prefHeight="500.0" prefWidth="835.0">
-
+<AnchorPane prefHeight="500.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Reports">
+    <children>
+        <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Reports" AnchorPane.leftAnchor="20.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font></Label>
+        <AnchorPane layoutX="50.0" layoutY="56.0" prefHeight="407.0" prefWidth="805.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="56.0">
+         <children>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="407.0" prefWidth="805.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Contact Schedule" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                               <Pane prefHeight="25.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
+                              <ComboBox fx:id="contactCBox" onAction="#onContactSelect" prefWidth="150.0" promptText="Select a Contact" />
+                           </children>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </HBox>
+                        <TableView fx:id="ContactTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="555.0">
+                          <columns>
+                            <TableColumn fx:id="idCCol" prefWidth="20.0" text="ID" />
+                            <TableColumn fx:id="titleCCol" text="Title" />
+                              <TableColumn fx:id="typeCCol" prefWidth="100.0" text="Type" />
+                              <TableColumn fx:id="descriptionCCol" prefWidth="100.0" text="Description" />
+                              <TableColumn fx:id="startCCol" prefWidth="100.0" text="Start" />
+                              <TableColumn fx:id="endCCol" prefWidth="100.0" text="End" />
+                              <TableColumn fx:id="customerIDCCol" prefWidth="47" text="Cust_ID" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="55.0" text="Appointment Types by Month" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="monthlyTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="235.0">
+                           <columns>
+                              <TableColumn fx:id="monthMCol" prefWidth="90.0" text="Month" />
+                              <TableColumn fx:id="typeMCol" prefWidth="100.0" text="Type" />
+                              <TableColumn fx:id="countMCol" prefWidth="41.99998474121094" text="Count" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </HBox>
+         </children></AnchorPane>
+        <HBox layoutX="51.0" layoutY="460.0" prefHeight="25.0" prefWidth="649.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <children>
+                <Button onAction="#toContactReport" mnemonicParsing="false" text="Contact Information" />
+                <Pane prefHeight="25.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
+                <Button disable="true" layoutX="235.0" layoutY="10.0" mnemonicParsing="false" text="Reports" />
+                <Button layoutX="707.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerRecords" text="Customers" />
+                <Button layoutX="647.0" layoutY="10.0" mnemonicParsing="false" onAction="#toSchedule" text="Schedule" />
+                <Button layoutX="361.0" layoutY="10.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

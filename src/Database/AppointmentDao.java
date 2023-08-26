@@ -23,13 +23,13 @@ public class AppointmentDao {
             String type = result.getString("Type");
             Timestamp start = result.getTimestamp("Start");
             Timestamp end = result.getTimestamp("End");
-            int custID = result.getInt("Customer_ID");
+            int customerID = result.getInt("Customer_ID");
             int userID = result.getInt("User_ID");
             int contactID = result.getInt("Contact_ID");
             String description = result.getString("Description");
             Appointment appointmentResult = new Appointment(
                     id, title, location, contactID, type,
-                    start, end, custID, userID, description
+                    start, end, customerID, userID, description
             );
             allAppointments.add(appointmentResult);
         }

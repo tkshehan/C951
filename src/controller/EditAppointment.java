@@ -44,7 +44,7 @@ public class EditAppointment extends AppointmentCtrl {
             duration.setValue(new AppointmentDuration(between));
 
             for (Contact contact : contactCBox.getItems()) {
-                if (contact.id() == appointment.getContactID()) {
+                if (contact.getId() == appointment.getContactID()) {
                     contactCBox.setValue(contact);
                     break;
                 }
@@ -78,7 +78,7 @@ public class EditAppointment extends AppointmentCtrl {
 
         selectedAppointment.setUserID(userCBox.getValue().id());
         selectedAppointment.setCustomerID(customerCBox.getValue().getId());
-        selectedAppointment.setContact(contactCBox.getValue().id());
+        selectedAppointment.setContact(contactCBox.getValue().getId());
 
         ZoneId UTC = ZoneId.of("UTC");
         ZoneId localZone = ZoneId.systemDefault();
