@@ -1,5 +1,5 @@
 Client Schedule Manager
-  - description
+  The application is used to view and manage schedules for both clients and contacts across timezones.
 
   Author: Thomas Shehan
   Contact: tshehan@wgu.edu

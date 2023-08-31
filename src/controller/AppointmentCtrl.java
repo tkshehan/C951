@@ -37,15 +37,27 @@ public abstract class AppointmentCtrl implements Initializable {
     public Text errorText;
     public Button cancel;
 
+    /** List of appointments */
     private ObservableList<Appointment> appointments;
+
+    /** Timezone of the business location */
     private final ZoneId BUSINESSTIMEZONE = ZoneId.of("America/New_York"); // America/New_York
+    /** Opening time of the business */
     private final int OPENHOUR = 8; // 8am
+    /** Closing time of the business */
     private final int CLOSEHOUR = 17; // 5pm
 
+    /** Constructor. Assigns the appointments to check times against.
+     * @param appointments The appointments to assign.
+     */
     AppointmentCtrl(ObservableList<Appointment> appointments) {
         this.appointments = appointments;
     }
 
+    /** This method runs after the view is loaded.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setContacts();
@@ -54,6 +66,9 @@ public abstract class AppointmentCtrl implements Initializable {
         setDurations();
     }
 
+    /**
+     * This method sets the available business hours for appointments.
+     */
     protected void setBusinessHours() {
         ZonedDateTime localTime = startDate.getValue().atStartOfDay(ZoneId.systemDefault());
 
@@ -69,7 +84,9 @@ public abstract class AppointmentCtrl implements Initializable {
     }
 
 
-
+    /**
+     * This method sets the available lengths for appointments in 15 minute increments.
+     */
     private void setDurations() {
         ObservableList<AppointmentDuration> durations = FXCollections.observableArrayList();
         int fifteenMinIntervals = 16;
@@ -82,6 +99,9 @@ public abstract class AppointmentCtrl implements Initializable {
     }
 
 
+    /**
+     * This method sets the available customers for selection.
+     */
     private void setCustomers() {
         try {
             ObservableList<Customer> customers = CustomerDao.getAllCustomers();
@@ -91,6 +111,9 @@ public abstract class AppointmentCtrl implements Initializable {
         }
     }
 
+    /**
+     * This method sets the available contacts for selection.
+     */
     private void setContacts() {
         try {
             ObservableList<Contact> contacts = ContactDao.getAllContacts();
@@ -100,6 +123,9 @@ public abstract class AppointmentCtrl implements Initializable {
         }
     }
 
+    /**
+     * This method sets the available users for selection.
+     */
     private void setUsers() {
         try {
             ObservableList<User> users = UserDao.getAllUsers();
@@ -109,6 +135,12 @@ public abstract class AppointmentCtrl implements Initializable {
         }
     }
 
+    /** This method checks to see if all fields are valid. <BR>
+     * <BR>
+     * Lambda 1: Returns true if appointments customers id matches the selected customer's id, adding it to the filtered list<BR>
+     * Lambda 2: Returns true if the appointment conflicts with any other appointment with the same customer.
+     * @return Returns true if all fields are valid, and false if not.
+     */
     protected boolean validateAppointment() {
         String errorMessage = "";
 
@@ -163,9 +195,11 @@ public abstract class AppointmentCtrl implements Initializable {
                 LocalDateTime appEnd = localEnd.toLocalDateTime();
                 int customerId = customerCBox.getValue().getId();
                 FilteredList<Appointment> customerAppointments = appointments.filtered(
+                        // Lambda, see Javadoc
                         appointment -> appointment.getCustomerID() == customerId);
 
                 boolean isAppointmentConflict = customerAppointments.stream().anyMatch(
+                        // Lambda, see Javadoc
                         appointment -> {
                             LocalDateTime checkStart = appointment.getStart().toLocalDateTime().minusSeconds(1);
                             LocalDateTime checkEnd = appointment.getEnd().toLocalDateTime().plusSeconds(1);
@@ -191,12 +225,24 @@ public abstract class AppointmentCtrl implements Initializable {
         }
     }
 
+    /**
+     * This method sets runs when the user selects a date.
+     * @param actionEvent An action from the user.
+     */
     @FXML
     public void onDateSelected(ActionEvent actionEvent) {
         setBusinessHours();
     }
+
+    /**
+     * This method runs when the submit button is clicked.
+     */
     @FXML
     public abstract void submitAppointment();
+
+    /** This method closes the window.
+     * @param actionEvent An action by the user.
+     */
     @FXML
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

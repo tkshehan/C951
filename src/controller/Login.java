@@ -5,14 +5,9 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.User;
 
 import java.io.IOException;
@@ -25,18 +20,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/** This class controls the Login view. */
 public class Login implements Initializable {
+    /** Localization text resources*/
     ResourceBundle resources;
     public TextField username;
     public PasswordField password;
     public Text errorText;
     public Label locationLabel;
-    public static User activeUser;
 
+    /** The list of users who can log in. */
     ObservableList<User> Users = FXCollections.observableArrayList();
+
+    /** Logs messages to login_activity.txt */
     Logger log;
 
 
+    /** This method runs when the view loads.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -49,11 +52,18 @@ public class Login implements Initializable {
         displayLocation();
     }
 
+    /**
+     * This method displays the Users location.
+     */
     public void displayLocation() {
         String location = Locale.getDefault().getDisplayCountry();
         locationLabel.setText(location);
     }
 
+
+    /**
+     * This method initializes the logger.
+     */
     public void setupLogger() {
         log = Logger.getLogger("login_activity.txt");
         log.setLevel(Level.CONFIG);
@@ -71,6 +81,13 @@ public class Login implements Initializable {
         }
     }
 
+    /**
+     * This method attempts to log the user into system. <br>
+     * <br>
+     * LAMBDA: Returns true if the username is found in Users, adding it to the filtered list, which is then checked for any existing user.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public void login(ActionEvent actionEvent) throws IOException {
         errorText.setText(""); // Reset error message
         // Validate
@@ -96,11 +113,15 @@ public class Login implements Initializable {
         logLoginAttempt(isValid);
         if(isValid) {
             // Login Successful
-            activeUser = loginUser;
             toSchedule(actionEvent);
         }
     }
 
+
+    /**
+     * This method logs the users attempt at a login.
+     * @param isValid The results of the login attempt.
+     */
     public void logLoginAttempt(boolean isValid) {
         Date currentUtcTime = Date.from(Instant.now());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
@@ -113,10 +134,18 @@ public class Login implements Initializable {
         log.info(attempt);
     }
 
+    /**
+     * This method navigates to the schedule view.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     private void toSchedule(ActionEvent actionEvent) throws IOException {
         Schedule.navigateTo(actionEvent);
     }
 
+    /** This method quits the application.
+     * @param actionEvent An action from the user.
+     */
     public void quit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
