@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="466.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ContactReport">
+    <children>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="529.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox>
+               <children>
+                  <Label text="Contact Report">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Label>
+               </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </padding></HBox>
+            <TableView fx:id="reportTable" prefHeight="320.0" prefWidth="595.0">
+              <columns>
+                <TableColumn fx:id="idCol" prefWidth="33.000001311302185" text="ID" />
+                <TableColumn fx:id="nameCol" prefWidth="153.66669082641602" text="Name" />
+                  <TableColumn fx:id="emailCol" prefWidth="139.99998474121094" text="Email" />
+                  <TableColumn fx:id="appointmentsCol" prefWidth="91.33331298828125" text="Appointments" />
+              </columns>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </TableView>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" onAction="#closeWindow" text="Close" />
+                    </buttons>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="30.0" right="30.0" />
+                    </VBox.margin>
+                </ButtonBar>
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </VBox>
+    </children>
+
+</AnchorPane>

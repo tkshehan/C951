@@ -2,7 +2,6 @@ package controller;
 
 import Database.AppointmentDao;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import model.*;
 
 import java.net.URL;

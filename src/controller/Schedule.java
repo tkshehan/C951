@@ -4,6 +4,7 @@ import Database.AppointmentDao;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,6 +43,8 @@ public class Schedule implements Initializable {
     public TableView<Appointment> appointmentTable;
     private ObservableList<Appointment> appointments;
 
+    private static boolean isFirstVisit = true;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentTable.setItems(appointments);
@@ -58,6 +61,37 @@ public class Schedule implements Initializable {
 
         refreshAppointments();
         displayAll.fire();
+
+        if (isFirstVisit) {
+            upcomingAppointmentAlert();
+            isFirstVisit = false;
+        }
+    }
+
+    private void upcomingAppointmentAlert() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now15 = LocalDateTime.now().plusMinutes(15);
+
+
+        FilteredList<Appointment> upcomingAppointments = appointments.filtered(appointment -> {
+                LocalDateTime start = appointment.getStart().toLocalDateTime();
+                return start.isBefore(now15) && start.isAfter(now);
+                }
+        );
+
+        if (!upcomingAppointments.isEmpty()) {
+            Appointment upcoming = upcomingAppointments.get(0);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Upcoming Appointment!");
+            alert.setHeaderText("Upcoming appointment");
+            alert.setContentText("""
+                    ID: %s,
+                    Date and Time: %s
+                    """.formatted(upcoming.getID(), upcoming.getStart()));
+
+            alert.showAndWait();
+        }
     }
 
     public static void navigateTo(ActionEvent actionEvent) throws IOException {
@@ -145,27 +179,25 @@ public class Schedule implements Initializable {
     }
 
     public void displayByMonth(ActionEvent actionEvent) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(Timestamp.valueOf(LocalDateTime.now()));
-        cal.add(Calendar.MONTH, 1);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextMonth = now.plusMonths(1);
 
         ObservableList<Appointment> monthAppointments = appointments.stream().filter(appointment -> {
-            int result = appointment.getStart().compareTo(new Timestamp(cal.getTime().getTime()));
-            return result <= 0;
+            LocalDateTime start = appointment.getStart().toLocalDateTime();
+            return start.isBefore(nextMonth) && start.isAfter(now);
         }).collect(Collectors.toCollection(FXCollections::observableArrayList));
         appointmentTable.setItems(monthAppointments);
     }
 
     public void displayByWeek(ActionEvent actionEvent) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(Timestamp.valueOf(LocalDateTime.now()));
-        cal.add(Calendar.DAY_OF_WEEK, 7);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextWeek = now.plusWeeks(1);
 
-        ObservableList<Appointment> weekAppointments = appointments.stream().filter(appointment -> {
-            int result = appointment.getStart().compareTo(new Timestamp(cal.getTime().getTime()));
-            return result <= 0;
+        ObservableList<Appointment> monthAppointments = appointments.stream().filter(appointment -> {
+            LocalDateTime start = appointment.getStart().toLocalDateTime();
+            return start.isBefore(nextWeek) && start.isAfter(now);
         }).collect(Collectors.toCollection(FXCollections::observableArrayList));
-        appointmentTable.setItems(weekAppointments);
+        appointmentTable.setItems(monthAppointments);
     }
 
     public void toReports(ActionEvent actionEvent) throws IOException {

@@ -13,8 +13,8 @@
                   <ToggleGroup fx:id="timeFrame" />
                </toggleGroup></RadioButton>
 
-             <RadioButton fx:id="displayByMonth" mnemonicParsing="false" onAction="#displayByMonth" text="By Month" toggleGroup="$timeFrame" />
-            <RadioButton fx:id="displayByWeek" mnemonicParsing="false" onAction="#displayByWeek" text="By Week" toggleGroup="$timeFrame" />
+             <RadioButton fx:id="displayByMonth" mnemonicParsing="false" onAction="#displayByMonth" text="Upcoming Month" toggleGroup="$timeFrame" />
+            <RadioButton fx:id="displayByWeek" mnemonicParsing="false" onAction="#displayByWeek" text="Upcoming Week" toggleGroup="$timeFrame" />
          </children>
         </HBox>
         <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="51.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" text="Appointments" AnchorPane.leftAnchor="20.0">
@@ -29,7 +29,7 @@
                 <Pane prefHeight="25.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
                 <Button layoutX="235.0" layoutY="10.0" mnemonicParsing="false" onAction="#toReports" text="Reports" />
                 <Button layoutX="707.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerRecords" text="Customers" />
-                <Button layoutX="647.0" layoutY="10.0" mnemonicParsing="false" disable="true" text="Schedule" />
+                <Button disable="true" layoutX="647.0" layoutY="10.0" mnemonicParsing="false" text="Schedule" />
                 <Button layoutX="361.0" layoutY="10.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
             </children>
         </HBox>

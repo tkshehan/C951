@@ -73,7 +73,6 @@ public class Reports implements Initializable {
         titleCCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         typeCCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         descriptionCCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        titleCCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         startCCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIDCCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
@@ -126,7 +125,13 @@ public class Reports implements Initializable {
         ContactTable.setItems(contactAppointments);
     }
 
-    public void toContactReport(ActionEvent actionEvent) {
+    public void toContactReport(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ContactReport.fxml"));
+        Parent root = loader.load();
 
+        Stage newWindow = new Stage();
+        newWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        newWindow.setScene(new Scene(root));
+        newWindow.show();
     }
 }

@@ -33,12 +33,12 @@
                         </HBox>
                         <TableView fx:id="ContactTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="555.0">
                           <columns>
-                            <TableColumn fx:id="idCCol" prefWidth="20.0" text="ID" />
-                            <TableColumn fx:id="titleCCol" text="Title" />
-                              <TableColumn fx:id="typeCCol" prefWidth="100.0" text="Type" />
+                            <TableColumn fx:id="idCCol" prefWidth="17.0" text="ID" />
+                            <TableColumn fx:id="titleCCol" prefWidth="63.0" text="Title" />
+                              <TableColumn fx:id="typeCCol" prefWidth="101.0" text="Type" />
                               <TableColumn fx:id="descriptionCCol" prefWidth="100.0" text="Description" />
-                              <TableColumn fx:id="startCCol" prefWidth="100.0" text="Start" />
-                              <TableColumn fx:id="endCCol" prefWidth="100.0" text="End" />
+                              <TableColumn fx:id="startCCol" prefWidth="112.0" text="Start" />
+                              <TableColumn fx:id="endCCol" prefWidth="112.0" text="End" />
                               <TableColumn fx:id="customerIDCCol" prefWidth="47" text="Cust_ID" />
                           </columns>
                         </TableView>
@@ -68,7 +68,7 @@
          </children></AnchorPane>
         <HBox layoutX="51.0" layoutY="460.0" prefHeight="25.0" prefWidth="649.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
             <children>
-                <Button onAction="#toContactReport" mnemonicParsing="false" text="Contact Information" />
+                <Button mnemonicParsing="false" onAction="#toContactReport" text="Contact Information" />
                 <Pane prefHeight="25.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
                 <Button disable="true" layoutX="235.0" layoutY="10.0" mnemonicParsing="false" text="Reports" />
                 <Button layoutX="707.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerRecords" text="Customers" />
