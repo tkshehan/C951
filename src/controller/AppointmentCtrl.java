@@ -20,6 +20,9 @@ import java.sql.SQLException;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/**
+ * This class controls the Appointment View
+ */
 public abstract class AppointmentCtrl implements Initializable {
 
     public Label windowTitle;

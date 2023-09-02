@@ -1,6 +1,5 @@
 package controller;
 
-import Database.ContactDao;
 import Database.ReportsDao;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +16,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class controls the ContactReport View.
+ */
 public class ContactReport implements Initializable {
 
     public TableView<Contact> reportTable;
@@ -25,6 +27,10 @@ public class ContactReport implements Initializable {
     public TableColumn emailCol;
     public TableColumn appointmentsCol;
 
+    /** This method runs when the view finishes loading.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -40,6 +46,9 @@ public class ContactReport implements Initializable {
         }
     }
 
+    /** This method closes the window.
+     * @param actionEvent An action from the user.
+     */
     @FXML
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

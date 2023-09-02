@@ -7,8 +7,14 @@ import model.Customer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** This method controls the Customer View, adding a new Customer.
+ */
 public class NewCustomer extends CustomerCtrl {
 
+    /** This method runs when the View finishes loading.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
@@ -16,6 +22,9 @@ public class NewCustomer extends CustomerCtrl {
         idField.setText("Auto-Generated");
     }
 
+    /** This method creates a new customer if the fields are valid.
+     * @param actionEvent An action from the user.
+     */
     @Override
     public void submitCustomer(ActionEvent actionEvent) {
         if(!validateCustomer()) return;

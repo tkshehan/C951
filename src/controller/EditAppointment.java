@@ -9,23 +9,35 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/** This method controls the Appointment Window, editing a single selected appointment. */
 public class EditAppointment extends AppointmentCtrl {
 
-
+    /** The appointment to edit. */
     private Appointment selectedAppointment;
 
 
+    /** Constructor: Passes the selected appointment.
+     * @param appointments All appointments.
+     * @param selectedAppointment The appointment to edit.
+     */
     EditAppointment(ObservableList<Appointment> appointments, Appointment selectedAppointment) {
         super(appointments);
         this.selectedAppointment = selectedAppointment;
     }
 
+    /** This method runs when the View finishes loading.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
         setAppointment(selectedAppointment);
     }
 
+    /** Sets the fields to the selected appointment's data.
+     * @param appointment The appointment to set.
+     */
     public void setAppointment(Appointment appointment) {
             selectedAppointment = appointment;
 
@@ -66,6 +78,8 @@ public class EditAppointment extends AppointmentCtrl {
             setBusinessHours();
         }
 
+    /** This method updates the appointment if all fields are valid.
+     */
     @Override
     public void submitAppointment() {
         if(!validateAppointment()) return;

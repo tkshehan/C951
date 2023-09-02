@@ -1,7 +1,6 @@
 package controller;
 
 import Database.CountryDao;
-import Database.CustomerDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +19,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class controls the Customer View
+ */
 public abstract class CustomerCtrl implements Initializable {
 
     public Label windowTitle;
@@ -33,6 +35,10 @@ public abstract class CustomerCtrl implements Initializable {
     public ComboBox<String> divisionCBox;
     public Button cancel;
 
+    /** This method runs after the view is loaded.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Country> countries = FXCollections.observableArrayList();
@@ -47,6 +53,9 @@ public abstract class CustomerCtrl implements Initializable {
         countryCBox.setItems(countries);
     }
 
+    /** This method checks to see if all fields are valid.
+     * @return returns true if all fields are valid, and false if not.
+     */
     protected boolean validateCustomer() {
         String errorMessage = "";
 
@@ -97,6 +106,9 @@ public abstract class CustomerCtrl implements Initializable {
         }
     }
 
+    /** This method fills the division combobox when a country is selected.
+     * @param actionEvent An action from the user.
+     */
     @FXML
     public void onCountrySelect(ActionEvent actionEvent) {
         divisionCBox.getItems().clear();
@@ -109,12 +121,18 @@ public abstract class CustomerCtrl implements Initializable {
         divisionCBox.setDisable(false);
     }
 
+    /** This method closes the window.
+     * @param actionEvent An action from the user.
+     */
     @FXML
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
+    /** This method runs when the submit button is pressed.
+     * @param actionEvent An action from the user.
+     */
     @FXML
     public abstract void submitCustomer(ActionEvent actionEvent);
 }

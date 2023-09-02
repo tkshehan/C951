@@ -27,12 +27,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class Reports implements Initializable {
-    public TableView monthlyTable;
+    public TableView<AppointmentsByMonthAndType> monthlyTable;
     public TableColumn monthMCol;
     public TableColumn typeMCol;
     public TableColumn countMCol;
 
-    public TableView ContactTable;
+    public TableView<Appointment> ContactTable;
     public TableColumn idCCol;
     public TableColumn titleCCol;
     public TableColumn typeCCol;
@@ -42,10 +42,13 @@ public class Reports implements Initializable {
     public TableColumn customerIDCCol;
     public ComboBox<Contact> contactCBox;
 
-    private ObservableList<AppointmentsByMonthAndType> monthlyRecords;
+    /** List of all appointments */
     private ObservableList<Appointment> appointments;
-    private ObservableList<Contact> contacts;
 
+    /** This method runs when the view finishes loading
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setContacts();
@@ -53,6 +56,7 @@ public class Reports implements Initializable {
         initContactReport();
     }
 
+    /** Populates the Contact ComboBox */
     private void setContacts() {
         try {
             ObservableList<Contact> contacts = ContactDao.getAllContacts();
@@ -62,6 +66,8 @@ public class Reports implements Initializable {
         }
     }
 
+    /** This method initializes the Contact Report Table
+     */
     private void initContactReport() {
         try {
             appointments = AppointmentDao.getAllAppointments();
@@ -78,8 +84,10 @@ public class Reports implements Initializable {
         customerIDCCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
+    /** This method initializes the MonthlyReport Table.
+     */
     private void initMonthlyReport() {
-        monthlyRecords = ReportsDao.getMonthAndTypeReport();
+        ObservableList<AppointmentsByMonthAndType> monthlyRecords = ReportsDao.getMonthAndTypeReport();
 
         monthlyTable.setItems(monthlyRecords);
         monthMCol.setCellValueFactory(new PropertyValueFactory<>("month"));
@@ -88,6 +96,10 @@ public class Reports implements Initializable {
 
     }
 
+    /** This method navigates to this View.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public static void navigateTo(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(CustomerRecords.class.getResource("/view/Reports.fxml"));
         Parent root = loader.load();
@@ -98,14 +110,27 @@ public class Reports implements Initializable {
         stage.show();
     }
 
+
+    /** This method navigates to Customer Records.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public void toCustomerRecords(ActionEvent actionEvent) throws IOException {
         CustomerRecords.navigateTo(actionEvent);
     }
 
+
+    /** This method navigates to Schedule
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public void toSchedule(ActionEvent actionEvent) throws IOException {
         Schedule.navigateTo(actionEvent);
     }
 
+    /** This method quits the program.
+     * @param actionEvent An action from the user.
+     */
     public void quit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -114,9 +139,14 @@ public class Reports implements Initializable {
         }
     }
 
+    /** Populates the ContactTable for the selected Contact. <BR>
+     * <BR>
+     * LAMBDA: Filters out appointments that don't have the same contact id as the selected contact.
+     * @param actionEvent An action from the user.
+     */
     public void onContactSelect(ActionEvent actionEvent) {
         int contactID = contactCBox.getValue().getId();
-        ObservableList<Appointment> contactAppointments = FXCollections.observableArrayList();
+        ObservableList<Appointment> contactAppointments;
 
         contactAppointments = appointments.stream()
                 .filter(appointment ->appointment.getContactID() == contactID)
@@ -125,6 +155,10 @@ public class Reports implements Initializable {
         ContactTable.setItems(contactAppointments);
     }
 
+    /** Loads the Contact Report window.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public void toContactReport(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ContactReport.fxml"));
         Parent root = loader.load();

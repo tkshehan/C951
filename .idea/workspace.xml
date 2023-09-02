@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ccab6fb-d887-464c-88d7-b77e0ad9539e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/AppointmentCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AppointmentCtrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ContactReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ContactReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CustomerCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerCtrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CustomerRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerRecords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/EditAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditAppointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/EditCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/NewAppointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/NewAppointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/NewCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/NewCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Reports.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Reports.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +136,7 @@
       <workItem from="1693057279982" duration="12528000" />
       <workItem from="1693484341202" duration="1227000" />
       <workItem from="1693485588982" duration="10974000" />
+      <workItem from="1693664861713" duration="5862000" />
     </task>
     <servers />
   </component>

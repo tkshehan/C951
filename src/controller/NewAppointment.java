@@ -10,12 +10,18 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+/** This class controls the Appointment View, adding a new customer.
+ */
 public class NewAppointment extends AppointmentCtrl {
 
     NewAppointment(ObservableList<Appointment> appointment) {
         super(appointment);
     }
 
+    /** This method runs when the view finishes loading.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
@@ -23,6 +29,7 @@ public class NewAppointment extends AppointmentCtrl {
         idField.setText("Auto-Generated");
     }
 
+    /** This method creates a new appointment if all fields are valid. */
     @Override
     public void submitAppointment() {
         if(!validateAppointment()) return;

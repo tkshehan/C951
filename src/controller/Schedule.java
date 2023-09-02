@@ -18,9 +18,7 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -41,10 +39,18 @@ public class Schedule implements Initializable {
     public TableColumn customerCol;
     public TableColumn descriptionCol;
     public TableView<Appointment> appointmentTable;
+
+    /** List of All Appointments */
     private ObservableList<Appointment> appointments;
 
+    /** Is this the first time this page has loaded */
     private static boolean isFirstVisit = true;
 
+
+    /** This method runs when the View finishes loading.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentTable.setItems(appointments);
@@ -68,6 +74,10 @@ public class Schedule implements Initializable {
         }
     }
 
+    /** This method alerts the user if an appointment is upcoming within 15 minutes. <BR>
+     * <BR>
+     * LAMBDA: Filters out appointments that do no start in the next 15 minutes.
+     */
     private void upcomingAppointmentAlert() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime now15 = LocalDateTime.now().plusMinutes(15);
@@ -94,6 +104,10 @@ public class Schedule implements Initializable {
         }
     }
 
+    /** This method navigates to the schedule view.
+     * @param actionEvent An action by the user.
+     * @throws IOException
+     */
     public static void navigateTo(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(CustomerRecords.class.getResource("/view/Schedule.fxml"));
         Parent root = loader.load();
@@ -105,6 +119,10 @@ public class Schedule implements Initializable {
     }
 
 
+    /** Loads the new appointment window.
+     * @param actionEvent An action by the user.
+     * @throws IOException
+     */
     public void newAppointment(ActionEvent actionEvent) throws IOException {
         NewAppointment controller = new NewAppointment(appointments);
         Stage newWindow = appointmentWindow(actionEvent, controller);
@@ -114,6 +132,10 @@ public class Schedule implements Initializable {
 
     }
 
+    /** Loads the edit appointment window.
+     * @param actionEvent An action by the user.
+     * @throws IOException
+     */
     public void editAppointment(ActionEvent actionEvent) throws IOException {
         Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
         if(selected == null) return;
@@ -125,6 +147,15 @@ public class Schedule implements Initializable {
         newWindow.show();
     }
 
+
+    /** Initializes a new Appointment Window with the chosen controller. <BR>
+     * <BR>
+     * LAMBDA: Sets an inline method to run when the window closes, refreshing the appointments with new data.
+     * @param actionEvent An action by the user.
+     * @param controller The controller to set to the window.
+     * @return The Appointment View window to return.
+     * @throws IOException
+     */
     private Stage appointmentWindow(ActionEvent actionEvent, AppointmentCtrl controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Appointment.fxml"));
         loader.setController(controller);
@@ -141,11 +172,15 @@ public class Schedule implements Initializable {
         return newWindow;
     }
 
+    /** Deletes the selection appointment after verifying with the user.
+     * @param actionEvent An action from the user.
+     */
     public void deleteAppointment(ActionEvent actionEvent) {
         Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
         if(selected == null) return;
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Appointment with ID " + selected.getID() + ". \n Do you want to continue?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Appointment with ID "
+                + selected.getID() + ". \n Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             AppointmentDao.deleteAppointment(selected);
@@ -153,6 +188,8 @@ public class Schedule implements Initializable {
         }
     }
 
+    /** This method refreshes the appointments table with new data.
+     */
     public void refreshAppointments() {
         try {
             appointments = AppointmentDao.getAllAppointments();
@@ -162,6 +199,9 @@ public class Schedule implements Initializable {
         }
     }
 
+    /** This method closes the program after confirming with the user.
+     * @param actionEvent An action from the user.
+     */
     public void quit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -170,14 +210,26 @@ public class Schedule implements Initializable {
         }
     }
 
+    /** This method navigates to the CustomerRecords View.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public void toCustomerRecords(ActionEvent actionEvent) throws IOException {
         CustomerRecords.navigateTo(actionEvent);
     }
 
+    /** This method displays all appointments in the table.
+     * @param actionEvent An action from the user.
+     */
     public void displayAll(ActionEvent actionEvent) {
         appointmentTable.setItems(appointments);
     }
 
+    /** This method displays only appointments in the upcoming month. <BR>
+     * <BR>
+     * LAMBDA: Filters out appointments not in the upcoming month.
+     * @param actionEvent An action from the user.
+     */
     public void displayByMonth(ActionEvent actionEvent) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime nextMonth = now.plusMonths(1);
@@ -189,6 +241,11 @@ public class Schedule implements Initializable {
         appointmentTable.setItems(monthAppointments);
     }
 
+    /** This method displays only appointments in the upcoming week. <BR>
+     * <BR>
+     * LAMBDA: Filters out appointments not in the upcoming week.
+     * @param actionEvent An action from the user.
+     */
     public void displayByWeek(ActionEvent actionEvent) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime nextWeek = now.plusWeeks(1);
@@ -200,6 +257,10 @@ public class Schedule implements Initializable {
         appointmentTable.setItems(monthAppointments);
     }
 
+    /** This method navigates to the Reports View.
+     * @param actionEvent An action from the user.
+     * @throws IOException
+     */
     public void toReports(ActionEvent actionEvent) throws IOException {
         Reports.navigateTo(actionEvent);
     }
