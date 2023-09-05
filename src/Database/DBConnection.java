@@ -2,8 +2,9 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
+/** This class manages the connection to the database.
+ */
 public class DBConnection {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -12,9 +13,12 @@ public class DBConnection {
     private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
-    private static String password = "Passw0rd!"; // Password
+    private static final String password = "Passw0rd!"; // Password
+    /** The Connection Interface.  */
     public static Connection connection;  // Connection Interface
 
+    /** This method opens the connection to the database.
+     */
     public static void openConnection()
     {
         try {
@@ -28,6 +32,8 @@ public class DBConnection {
         }
     }
 
+    /** This method closes the connection to the database.
+     */
     public static void closeConnection() {
         try {
             connection.close();

@@ -9,7 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * This class accesses the database for the Appointment Class.
+ */
 public class AppointmentDao {
+    /** This method accesses and returns all appointments from the database.
+     * @return The list of appointments to return
+     * @throws SQLException
+     */
     public static ObservableList<Appointment> getAllAppointments() throws SQLException {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         DBConnection.openConnection();
@@ -37,6 +44,9 @@ public class AppointmentDao {
         return allAppointments;
     }
 
+    /** This method updates an appointment in the database by the appointment's ID.
+     * @param appointment The appointment to update
+     */
     public static void updateAppointment (Appointment appointment) {
         DBConnection.openConnection();
         String sqlStatement = "UPDATE appointments \n" +
@@ -55,6 +65,9 @@ public class AppointmentDao {
         DBConnection.closeConnection();
     }
 
+    /** This method deletes an appointment from the database by its ID.
+     * @param appointment The appointment to delete.
+     */
     public static void deleteAppointment (Appointment appointment) {
         DBConnection.openConnection();
         String sqlStatement = "DELETE FROM appointments WHERE Appointment_ID = %s;".formatted(appointment.getID());
@@ -63,6 +76,9 @@ public class AppointmentDao {
     }
 
 
+    /** This method adds an appointment to the database.
+     * @param appointment The appointment to create.
+     */
     public static void createAppointment (Appointment appointment) {
         DBConnection.openConnection();
         String sqlStatement = "INSERT INTO appointments(title, description, location, type, start, end, " +
@@ -83,6 +99,11 @@ public class AppointmentDao {
         DBConnection.closeConnection();
     }
 
+    /** This method checks to see if a customer has any scheduled appointments.
+     * @param customer The customer to check for appointments.
+     * @return True if the customer has an appointment, false otherwise.
+     * @throws SQLException
+     */
     public static boolean checkCustomerAppointments (Customer customer) throws SQLException {
         DBConnection.openConnection();
         String sqlStatement = "SELECT 1 FROM appointments WHERE Customer_ID = '%s';".formatted(customer.getId());

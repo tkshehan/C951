@@ -8,9 +8,18 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-
+/** This class accesses the database for the Country Class.
+ */
 public class CountryDao {
+    /**
+     * A persistent list of Countries, these are not expected to change often.
+     */
     private static ArrayList<Country> countries = null;
+
+    /** This method retrieves all countries from the database.
+     * @return The list of all available countries.
+     * @throws SQLException
+     */
     public static ArrayList<Country> getAllCountries() throws SQLException {
         if (countries != null) {
             return countries;

@@ -8,8 +8,13 @@ import model.reports.AppointmentsByMonthAndType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class accesses the database for any reports.
+ */
 public class ReportsDao {
 
+    /** This method retrieves the appointments by month and type report from the database.
+     * @return The report to return.
+     */
     public static ObservableList<AppointmentsByMonthAndType> getMonthAndTypeReport() {
         ObservableList<AppointmentsByMonthAndType> report = FXCollections.observableArrayList();
         DBConnection.openConnection();
@@ -39,6 +44,10 @@ public class ReportsDao {
         return report;
     }
 
+    /** This method retrieves a full report of all contact information from the database.
+     * @return The report of Contact information to return.
+     * @throws SQLException
+     */
     public static ObservableList<Contact> getContactReport() throws SQLException {
         ObservableList<Contact> contactReports = FXCollections.observableArrayList();
 

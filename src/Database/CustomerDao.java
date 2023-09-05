@@ -7,7 +7,14 @@ import model.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class accesses the database for the Customer Class.
+ */
 public class CustomerDao {
+
+    /** This method retrieves a list of all customers from the database.
+     * @return The list of customers to return.
+     * @throws SQLException
+     */
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
@@ -33,6 +40,10 @@ public class CustomerDao {
         DBConnection.closeConnection();
         return customers;
     }
+
+    /** This method updates a customer in the database.
+     * @param customer The customer to update.
+     */
     public static void updateCustomer(Customer customer) {
         DBConnection.openConnection();
         Query.makeQuery(
@@ -60,6 +71,9 @@ public class CustomerDao {
         DBConnection.closeConnection();
     }
 
+    /** This method inserts a new customer into the database.
+     * @param customer The customer to insert.
+     */
     public static void createCustomer(Customer customer) {
         DBConnection.openConnection();
         Query.makeQuery(
@@ -86,6 +100,9 @@ public class CustomerDao {
         DBConnection.closeConnection();
     }
 
+    /** This method deletes a customer from the database.
+     * @param customer The customer to delete.
+     */
     public static void deleteCustomer(Customer customer) {
         DBConnection.openConnection();
         String sqlStatement = "DELETE FROM customers WHERE Customer_ID = %s;".formatted(customer.getId());

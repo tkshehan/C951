@@ -7,8 +7,15 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class accesses the database for the User Class.
+ */
 public class UserDao {
-    public static ObservableList<User> getAllUsers() throws SQLException, Exception{
+
+    /** This method retrieves a list of all users from the database.
+     * @return The list of all Users.
+     * @throws SQLException
+     */
+    public static ObservableList<User> getAllUsers() throws SQLException {
         ObservableList<User> allUsers= FXCollections.observableArrayList();
         DBConnection.openConnection();
         String sqlStatement="select * from users";
