@@ -11,7 +11,9 @@ Client Schedule Manager
   JavaFX: javafx-sdk-17.0.6
   MySql-Connector: mysql-connector-java:8.0.28
 
-  - directions for how to run the program
+  How To Run:
+    Open the folder in IntelliJ idea and update the path for your JavaFX SDK, JDK, and JDBC.
+    Press Run.
 
   Additional Report:
     Display the email and name for each contact, and how many appointments they have scheduled.
