@@ -179,8 +179,8 @@ public class Schedule implements Initializable {
         Appointment selected = appointmentTable.getSelectionModel().getSelectedItem();
         if(selected == null) return;
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete Appointment with ID "
-                + selected.getID() + ". \n Do you want to continue?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete appointment ID: "
+                + selected.getID() + ", Type: " + selected.getType() + ". \n Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             AppointmentDao.deleteAppointment(selected);

@@ -12,6 +12,7 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
@@ -56,7 +57,7 @@ public class Login implements Initializable {
      * This method displays the Users location.
      */
     public void displayLocation() {
-        String location = Locale.getDefault().getDisplayCountry();
+        String location = TimeZone.getDefault().getID();
         locationLabel.setText(location);
     }
 
